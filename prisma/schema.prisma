@@ -83,22 +83,26 @@ model Authenticator {
 
 
 model Course {
-  id    String @id @default(cuid())
-  name  String
-  image String
-  units Chapter[]
+  id              String @id @default(cuid())
+  title           String
+  image           String
+  description     String
+  units           Chapter[]
 }
 
 
 model Chapter {
-  id                 String @id @default(cuid())
-  courseId           String
+  id                    String    @id @default(cuid())
+  courseId              String
 
-  name               String
-  youtubeSearchQuery String
-  videoId            String?
-  summary            String?    @db.VarChar(3000)
-  course             Course       @relation(fields: [courseId], references: [id])
+  title                  String
+  subtopics             String[]
+  subtopicExplanations  String[]
+
+  youtubeSearchQuery    String
+  videoId               String?
+  summary               String?    @db.VarChar(3000)
+  course                Course     @relation(fields: [courseId], references: [id])
 
   @@index([courseId], name: "courseId")
 }

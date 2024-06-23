@@ -41,4 +41,8 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 2. Setting up prisma, Setting up nextauth -> All from docs & taking help from bidsage project
 3. Using Acceternity ui kit for design
 4. pnpm add next-themes, designing the Navbar, Designing the Create Course page
-5. 
+5. Writing the code for generating the course, usng langchainjs with groq api for generation
+6. Also using Youtube Api and the Unsplaash api for fetching the yt video and the image(Taking reference from the previous project)
+7. Designing the Gallery page
+8. Designing the Course page
+9. pnpm remove react-pro-sidebar

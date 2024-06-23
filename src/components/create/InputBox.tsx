@@ -10,12 +10,14 @@ import {
 } from "@tabler/icons-react";
 import { Plus, Trash } from "lucide-react";
 import { toast } from "sonner"
+import { generateCourse } from "@/app/create/actions";
 
 export function InputBox() {
   const [courseTitle, setCourseTitle] = useState("");
   const [chapters, setChapters] = useState([{ id: 1, title: "" }]);
+  // const [genChapters, setGenChapters] = useState([{}])
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if(!courseTitle) return toast("Course title is required.");
     for (const chapter of chapters){
@@ -23,10 +25,18 @@ export function InputBox() {
         return toast("Chapter title is required.")
       }
     }
-    // const formData = new FormData(e.currentTarget);
-    // console.log("Form submitted", formData.get("courseTitle"));
-    console.log("Form submitted", courseTitle, chapters);
-    toast("Event has been created.")
+    try {
+      // const res = await generateChapters(chapters);
+      // const res2 = await generateCourseImage(courseTitle);
+      // console.log("Response", res, "\n \n");
+      // console.log("Image", res2);
+      const course = await generateCourse(chapters, courseTitle);
+      console.log("Generated Course", course);
+      toast("Course has been generated successfully.")
+    } catch (error) {
+      console.log("Error", error);
+      toast("An error occured generating the course. Please try again.")
+    }
   };
 
   const addMoreChapters = () => {

@@ -22,7 +22,7 @@ function Navbar({ className }: { className?: string }) {
     >
       <Menu setActive={setActive}>
         <div className="flex justify-center items-center">
-          <Link href={"/create"} className="mr-2 sm:mr-6">
+          <Link href={"/gallery"} className="mr-2 sm:mr-6">
             Gallery
           </Link>
           <Link href={"/create"} className="mr-2 sm:mr-6">
