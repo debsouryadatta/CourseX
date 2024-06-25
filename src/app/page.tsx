@@ -1,6 +1,5 @@
 "use client";
 
-import { CardComp } from "@/components/CardComp";
 import { Button } from "@/components/ui/button";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
@@ -39,7 +38,6 @@ export default function Home() {
       />
       <div>{session?.data?.user?.name}</div>
 
-      <CardComp />
     </div>
   );
 }

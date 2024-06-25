@@ -45,4 +45,4 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 6. Also using Youtube Api and the Unsplaash api for fetching the yt video and the image(Taking reference from the previous project)
 7. Designing the Gallery page
 8. Designing the Course page
-9. pnpm remove react-pro-sidebar
+9. Course page functionality - taking the slug from the route, if slug.length=1(show course details), else if slug.length>1(show the chapter component)

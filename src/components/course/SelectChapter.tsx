@@ -1,4 +1,4 @@
-import * as React from "react"
+import * as React from "react";
 
 import {
   Select,
@@ -8,25 +8,28 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from "@/components/ui/select";
+import Link from "next/link";
 
-export function SelectChapter() {
+export function SelectChapter({ courseDetails }: { courseDetails: any }) {
   return (
     <Select>
       <SelectTrigger className="w-[280px] sm:w-[500px]">
         <SelectValue placeholder="Select Chapter" />
       </SelectTrigger>
       <SelectContent>
-        <SelectGroup>
-          <SelectLabel>North America</SelectLabel>
-          <SelectItem value="est">Eastern Standard Time (EST)</SelectItem>
-          <SelectItem value="cst">Central Standard Time (CST)</SelectItem>
-          <SelectItem value="mst">Mountain Standard Time (MST)</SelectItem>
-          <SelectItem value="pst">Pacific Standard Time (PST)</SelectItem>
-          <SelectItem value="akst">Alaska Standard Time (AKST)</SelectItem>
-          <SelectItem value="hst">Hawaii Standard Time (HST)</SelectItem>
-        </SelectGroup>
+        <Link
+            className="cursor-pointer hover:bg-slate-900 ml-2 w-full relative flex select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
+            href={`/course/${courseDetails[0].courseId}`}
+          >Course Intro </Link>
+        {courseDetails.map((chapter: any, index: number) => (
+          <Link
+            className="cursor-pointer hover:bg-slate-900 ml-2 w-full relative flex select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
+            href={`/course/${chapter.courseId}/${chapter.id}`}
+            key={chapter.id}
+          >Chapter {index+1}: {chapter.title}</Link>
+        ))}
       </SelectContent>
     </Select>
-  )
+  );
 }

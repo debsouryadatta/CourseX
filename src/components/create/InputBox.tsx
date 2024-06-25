@@ -8,34 +8,37 @@ import {
   IconBrandGoogle,
   IconBrandOnlyfans,
 } from "@tabler/icons-react";
-import { Plus, Trash } from "lucide-react";
-import { toast } from "sonner"
+import { Loader2, Plus, Trash } from "lucide-react";
+import { toast } from "sonner";
 import { generateCourse } from "@/app/create/actions";
+import { useRouter } from "next/navigation";
 
 export function InputBox() {
   const [courseTitle, setCourseTitle] = useState("");
   const [chapters, setChapters] = useState([{ id: 1, title: "" }]);
-  // const [genChapters, setGenChapters] = useState([{}])
+  const router = useRouter();
+  const [generating, setGenerating] = useState(false);
 
-  const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if(!courseTitle) return toast("Course title is required.");
-    for (const chapter of chapters){
-      if (!chapter.title){
-        return toast("Chapter title is required.")
+    toast("Generating course...");
+    setGenerating(true);
+    if (!courseTitle) return toast("Course title is required.");
+    for (const chapter of chapters) {
+      if (!chapter.title) {
+        return toast("Chapter title is required.");
       }
     }
     try {
-      // const res = await generateChapters(chapters);
-      // const res2 = await generateCourseImage(courseTitle);
-      // console.log("Response", res, "\n \n");
-      // console.log("Image", res2);
       const course = await generateCourse(chapters, courseTitle);
       console.log("Generated Course", course);
-      toast("Course has been generated successfully.")
+      setGenerating(false);
+      toast("Course has been generated successfully.");
+      router.push(`/gallery`);
     } catch (error) {
       console.log("Error", error);
-      toast("An error occured generating the course. Please try again.")
+      setGenerating(false);
+      toast("An error occured generating the course. Please try again.");
     }
   };
 
@@ -43,17 +46,17 @@ export function InputBox() {
     console.log("Adding more chapters");
     const newChapter = { id: chapters.length + 1, title: "" };
     setChapters([...chapters, newChapter]);
-    toast("Chapter box has been added.")
+    toast("Chapter box has been added.");
     console.log([...chapters, newChapter]);
   };
 
   const removeChapters = () => {
     console.log("Removing chapters");
-    if (chapters.length === 1){
-      return toast("At least one chapter is required.")
+    if (chapters.length === 1) {
+      return toast("At least one chapter is required.");
     }
     setChapters(chapters.slice(0, -1));
-    toast("Chapter box has been removed.")
+    toast("Chapter box has been removed.");
   };
 
   const renderChapters = () => {
@@ -121,22 +124,36 @@ export function InputBox() {
             className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset] mb-10 flex items-center justify-center cursor-pointer"
             onClick={removeChapters}
           >
-            <span>Delete</span><Trash size={15} className="ml-[0.5px] mt-[-3px]"/>
+            <span>Delete</span>
+            <Trash size={15} className="ml-[0.5px] mt-[-3px]" />
             <BottomGradient />
           </div>
         </div>
 
-        <button
-          className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
-          type="submit"
-        >
-          Generate &rarr;
-          <BottomGradient />
-        </button>
+        {generating ? (
+          <button
+            className="opacity-70 cursor-pointer bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
+            type="submit"
+            disabled={true}
+          >
+            <div className="flex justify-center items-center">
+              <span>Generating...</span>
+              <span><Loader2 className="animate-spin w-5 h-5 ml-1" /></span>
+            </div>
+            <BottomGradient />
+          </button>
+        ) : (
+          <button
+            className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
+            type="submit"
+            disabled={false}
+          >
+            Generate &rarr;
+            <BottomGradient />
+          </button>
+        )}
 
         <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
-
-        {/* <div className="flex flex-col space-y-4"></div> */}
       </form>
     </div>
   );

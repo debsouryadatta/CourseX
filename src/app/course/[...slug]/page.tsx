@@ -23,7 +23,7 @@ export default async function page({ params: { slug } }: Props) {
 
   return (
     <div className="mt-20 flex flex-col justify-center items-center">
-      <SelectChapter />
+      <SelectChapter courseDetails={courseDetails} />
       <div className="mt-10 mb-20">
 
       {slug?.length === 1 && (

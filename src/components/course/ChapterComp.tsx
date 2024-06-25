@@ -30,7 +30,12 @@ export default function ChapterComp({ courseDetails, chapterId }: Props) {
       </div>
       <div className="mt-16">
         <h3 className="text-3xl font-semibold">More about {chapter.title}:</h3>
-        <p className="mt-2 text-secondary-foreground/80">{chapter.summary}</p>
+        {chapter.subtopics.map((subtopic: any, index: number) => (
+          <>
+            <h3 className="mt-6 text-xl font-semibold">{subtopic}</h3>
+            <p className="mt-1 text-secondary-foreground/80">{chapter.subtopicExplanations[index]}</p>
+          </>
+        ))}
       </div>
     </div>
   );
