@@ -17,6 +17,7 @@ export default async function page() {
   
   return (
     <div className="mt-20">
+      {courses?.length === 0 && <h1 className="mt-52 text-center text-2xl font-bold">No Courses Available!</h1>}
       <Gallery courses={courses} />
     </div>
   )

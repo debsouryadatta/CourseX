@@ -24,6 +24,9 @@ model User {
  
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  courses   Course[]
+  likes     Like[]
+  comments  Comment[]
 }
  
 model Account {
@@ -88,6 +91,12 @@ model Course {
   image           String
   description     String
   units           Chapter[]
+  userId          String
+  likes           Like[]
+  comments        Comment[]
+  user            User @relation(fields: [userId], references: [id])
+
+  @@index([userId], name: "userId")
 }
 
 
@@ -105,4 +114,29 @@ model Chapter {
   course                Course     @relation(fields: [courseId], references: [id])
 
   @@index([courseId], name: "courseId")
+}
+
+
+model Like {
+  id      String @id @default(cuid())
+  userId  String
+  courseId String
+
+  user    User   @relation(fields: [userId], references: [id])
+  course  Course @relation(fields: [courseId], references: [id])
+
+  @@index([userId], name: "userId2")
+  @@index([courseId], name: "courseId2")
+}
+
+model Comment {
+  id      String @id @default(cuid())
+  userId  String
+  courseId String
+  text    String
+  user    User   @relation(fields: [userId], references: [id])
+  course  Course @relation(fields: [courseId], references: [id])
+
+  @@index([userId], name: "userId3")
+  @@index([courseId], name: "courseId3")
 }

@@ -5,6 +5,9 @@ import { cn } from "@/utils/cn";
 import { ThemeToggle } from "./ThemeToggle";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { signIn, useSession } from "next-auth/react";
+import { Button } from "../ui/button";
+import { ProfileMenu } from "./ProfileMenu";
 
 export function NavbarComp() {
   return (
@@ -15,6 +18,7 @@ export function NavbarComp() {
 }
 
 function Navbar({ className }: { className?: string }) {
+  const session = useSession();
   const [active, setActive] = useState<string | null>(null);
   return (
     <div
@@ -34,14 +38,20 @@ function Navbar({ className }: { className?: string }) {
         </div>
         <div className="flex items-center">
           <div className="mr-2"><ThemeToggle /></div>
-          <div className="mr-2"><AvatarComp /></div>
+          {session?.data?.user ? 
+          <div className="mr-2">
+            <ProfileMenu />
+          </div>
+          : 
+          <Button variant={"outline"} size={"sm"} onClick={() => signIn()} className="mr-2 py-[-10px]">Sign In</Button>
+        }
         </div>
       </Menu>
     </div>
   );
 }
 
-function AvatarComp() {
+export function AvatarComp() {
   return (
       <Avatar>
         <AvatarImage src="https://github.com/shadcn.png" />
@@ -49,3 +59,4 @@ function AvatarComp() {
       </Avatar>
   );
 }
+

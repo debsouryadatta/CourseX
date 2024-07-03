@@ -25,3 +25,16 @@ export async function getCourseDetails(courseId: string) {
       console.log("Error: ", error);
     }
   }
+
+export const getUserDetails = async (userId: string) => {
+  try {
+    const res = await prisma.user.findUnique({
+      where: {
+        id: userId,
+      }
+    })
+    return res;
+  } catch (error) {
+    console.log("Error", error);
+  }
+}

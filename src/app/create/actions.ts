@@ -20,7 +20,7 @@ export async function generateChapters(chapters: { id: number, title: string }[]
 
 
 
-export async function generateCourse(chapters: { id: number, title: string }[], courseTitle: string){
+export async function generateCourse(chapters: { id: number, title: string }[], courseTitle: string, userId: string){
     try {
         let generatedChapters = await generateChapters(chapters)
         let imageUrl = await generateCourseImage(courseTitle);
@@ -31,7 +31,8 @@ export async function generateCourse(chapters: { id: number, title: string }[], 
             data: {
                 title: courseTitle,
                 image: imageUrl,
-                description: description
+                description: description,
+                userId: userId
             }
         })
         const response2 = []

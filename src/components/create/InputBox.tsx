@@ -13,7 +13,7 @@ import { toast } from "sonner";
 import { generateCourse } from "@/app/create/actions";
 import { useRouter } from "next/navigation";
 
-export function InputBox() {
+export function InputBox({session}: {session: any}) {
   const [courseTitle, setCourseTitle] = useState("");
   const [chapters, setChapters] = useState([{ id: 1, title: "" }]);
   const router = useRouter();
@@ -30,7 +30,7 @@ export function InputBox() {
       }
     }
     try {
-      const course = await generateCourse(chapters, courseTitle);
+      const course = await generateCourse(chapters, courseTitle, session?.data?.user?.id);
       console.log("Generated Course", course);
       setGenerating(false);
       toast("Course has been generated successfully.");
