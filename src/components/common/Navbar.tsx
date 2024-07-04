@@ -51,10 +51,10 @@ function Navbar({ className }: { className?: string }) {
   );
 }
 
-export function AvatarComp() {
+export function AvatarComp({user}: {user: any}) {
   return (
       <Avatar>
-        <AvatarImage src="https://github.com/shadcn.png" />
+        <AvatarImage src={user?.image} />
         <AvatarFallback>CN</AvatarFallback>
       </Avatar>
   );

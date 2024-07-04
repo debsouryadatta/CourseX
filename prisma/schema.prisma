@@ -27,6 +27,7 @@ model User {
   courses   Course[]
   likes     Like[]
   comments  Comment[]
+  bookmarks Bookmark[]
 }
  
 model Account {
@@ -94,6 +95,7 @@ model Course {
   userId          String
   likes           Like[]
   comments        Comment[]
+  bookmarks       Bookmark[]
   user            User @relation(fields: [userId], references: [id])
 
   @@index([userId], name: "userId")
@@ -139,4 +141,17 @@ model Comment {
 
   @@index([userId], name: "userId3")
   @@index([courseId], name: "courseId3")
+}
+
+model Bookmark {
+  id        String   @id @default(cuid())
+  userId    String
+  courseId  String
+  user      User     @relation(fields: [userId], references: [id])
+  course    Course   @relation(fields: [courseId], references: [id])
+  createdAt DateTime @default(now())
+
+  @@unique([userId, courseId], name: "user_course_unique")
+  @@index([userId], name: "userId4")
+  @@index([courseId], name: "courseId4")
 }

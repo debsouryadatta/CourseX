@@ -5,6 +5,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useSession } from "next-auth/react";
 
 export const HoverEffect = ({
   items,
@@ -19,12 +21,13 @@ export const HoverEffect = ({
   className?: string;
 }) => {
   let [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const session = useSession();
   
 
   return (
     <div
       className={cn(
-        "grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3  py-10",
+        "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 py-10",
         className
       )}
     >
@@ -65,7 +68,11 @@ export const HoverEffect = ({
             {/* </div> */}
 
             <CardTitle>{item.title}</CardTitle>
-            <CardDescription>{item.description}</CardDescription>
+            <CardDescription>{item.description.slice(0,70)}...</CardDescription>
+            <div className="flex justify-start items-end mt-3">
+              <AvatarComp user={session?.data?.user} />
+              <span className="text-sm ml-1">{session?.data?.user?.name}</span>
+            </div>
 
           </Card>
         </Link>
@@ -84,7 +91,7 @@ export const Card = ({
   return (
     <div
       className={cn(
-        "rounded-2xl h-full w-full p-4 overflow-hidden bg-black border border-transparent dark:border-white/[0.2] group-hover:border-slate-700 relative z-20",
+        "rounded-2xl h-full w-full p-1 overflow-hidden bg-black border border-transparent dark:border-white/[0.2] group-hover:border-slate-700 relative z-20",
         className
       )}
     >
@@ -125,3 +132,13 @@ export const CardDescription = ({
     </p>
   );
 };
+
+
+export function AvatarComp({user}: {user: any}) {
+  return (
+    <Avatar className="w-[25px] h-[25px]">
+      <AvatarImage src={user?.image} />
+      <AvatarFallback>CN</AvatarFallback>
+    </Avatar>
+  );
+}

@@ -43,8 +43,8 @@ export function ProfileMenu() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <div>
-          <AvatarComp />
+        <div className="cursor-pointer">
+          <AvatarComp user={session?.data?.user} />
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
