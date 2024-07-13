@@ -31,10 +31,12 @@ export default async function page({ params: { slug } }: Props) {
       )}
 
       {slug?.length > 1 && (
-        <ChapterComp
-          courseDetails={courseDetails}
-          chapterId={chapterId}
-        />
+        <div>
+          <ChapterComp
+            courseDetails={courseDetails}
+            chapterId={chapterId}
+          />
+        </div>
       )}
       </div>
     </div>

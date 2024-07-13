@@ -55,7 +55,7 @@ export function AvatarComp({user}: {user: any}) {
   return (
       <Avatar>
         <AvatarImage src={user?.image} />
-        <AvatarFallback>CN</AvatarFallback>
+        <AvatarFallback>{user?.name[0]}</AvatarFallback>
       </Avatar>
   );
 }

@@ -4,7 +4,8 @@ import {
   addLikeAction,
   addToBookmarkAction,
   checkLikeBookmarkStatusAction,
-  getUserDetails,
+  getAuthorDetails,
+  getLikesCountAction,
   removeFromBookmarkAction,
   removeLikeAction,
 } from "@/app/course/[...slug]/actions";
@@ -14,51 +15,67 @@ import { useEffect, useState } from "react";
 import CommentSec from "./CommentSec";
 import { useSession } from "next-auth/react";
 import { toast } from "sonner";
+import { ShareDialog } from "./ShareDialog";
+import Link from "next/link";
 
 export default function CourseDetail({ course }: { course: any }) {
-  const [user, setUser] = useState<any>(null);
+  const [author, setAuthor] = useState<any>(null);
   const [bookmark, setBookmark] = useState(false);
   const [like, setLike] = useState(false);
+  const [likesCount, setLikesCount] = useState(0);
 
   const session = useSession();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await getUserDetails(course.userId);
-        console.log(res);
-        setUser(res ? res : null);
+        const res = await getAuthorDetails(course.userId);
+        setAuthor(res ? res : null);
       } catch (error) {
         console.log("Error", error);
-        toast("Error fetching info")
+        // toast("Error fetching info")
       }
     };
 
-    const checkLikeBookmarkStatus = async () => {
+    const checkLikeBookmarkStatus = async () => {      
       try {
         const {bookmark, like} = await checkLikeBookmarkStatusAction(
           session?.data?.user?.id!,
           course.id
         )
+        
         if(bookmark) setBookmark(true)
         if(like) setLike(true)
       } catch (error) {
         console.log("Error", error);
-        toast("Error fetching info")
+        // toast("Error fetching info")
       }
+    }
+
+    const getLikesCount = async () => {
+      try {
+        const res = await getLikesCountAction(course.id);
+        setLikesCount(res);
+      } catch (error) {
+        console.log("Error", error);
+        // toast("Error fetching info")
+      }
+    
     }
 
     fetchData();
     checkLikeBookmarkStatus();
-  }, []);
+    getLikesCount();
+  }, [session]);
 
   const addToBookmark = async () => {
     try {
-      setBookmark(true);
+      if(!session?.data?.user) return toast("Please login to bookmark");
       const res = await addToBookmarkAction(
         session?.data?.user?.id!,
         course.id
       );
+      setBookmark(true);
       toast("Added to bookmark");
     } catch (error) {
       toast("Error adding to bookmark");
@@ -67,11 +84,12 @@ export default function CourseDetail({ course }: { course: any }) {
 
   const removeFromBookmark = async () => {
     try {
-      setBookmark(false);
+      if(!session?.data?.user) return toast("Please login to bookmark");
       const res = await removeFromBookmarkAction(
         session?.data?.user?.id!,
         course.id
       );
+      setBookmark(false);
       toast("Removed from bookmark");
     } catch (error) {
       toast("Error removing from bookmark");
@@ -80,8 +98,10 @@ export default function CourseDetail({ course }: { course: any }) {
 
   const addLike = async () => {
     try {
-      setLike(true);
+      if(!session?.data?.user) return toast("Please login to like");
       const res = await addLikeAction(session?.data?.user?.id!, course.id);
+      setLike(true);
+      setLikesCount(likesCount + 1)
       toast("Course liked");
     } catch (error) {
       toast("Error liking");
@@ -90,8 +110,10 @@ export default function CourseDetail({ course }: { course: any }) {
 
   const removeLike = async () => {
     try {
-      setLike(false);
+      if(!session?.data?.user) return toast("Please login to like");
       const res = await removeLikeAction(session?.data?.user?.id!, course.id);
+      setLike(false);
+      setLikesCount(likesCount - 1)
       toast("Course unliked");
     } catch (error) {
       toast("Error unliking");
@@ -102,47 +124,53 @@ export default function CourseDetail({ course }: { course: any }) {
       <>
         <div className="mt-6 p-2 flex justify-between">
           <div className="mr-2 flex justify-center items-center">
-            <AvatarComp />
-            <span className="ml-2 text-lg font-bold">{user?.name}</span>
+            <AvatarComp user={author} />
+            <span className="ml-2 text-lg font-bold">{author?.name}</span>
           </div>
           <div className="flex justify-between w-[100px] sm:w-[200px]">
             {like ? (
-              <button onClick={removeLike} className="mr-2">
-                <ThumbsUp fill="#fff" />
+              <button onClick={removeLike} className="mr-2 bg-slate-200 dark:bg-slate-900 rounded-2xl p-2">
+                <div className="flex">
+                  <ThumbsUp fill="#fff" />
+                  <span className="text-xl mt-[1.5px] ml-1 font-medium">{likesCount}</span>
+                </div>
               </button>
             ) : (
-              <button onClick={addLike} className="mr-2">
-                <ThumbsUp />
+              <button onClick={addLike} className="mr-2 bg-slate-200 dark:bg-slate-900 rounded-2xl p-2">
+                <div className="flex">
+                  <ThumbsUp />
+                  <span className="text-xl mt-[1.5px] ml-1 font-medium">{likesCount}</span>
+                </div>
               </button>
             )}
-            <button>
-              <Share2 />
+            <button className="mr-2 bg-slate-200 dark:bg-slate-900 rounded-2xl p-2">
+              <ShareDialog />
             </button>
             {bookmark ? (
-              <button onClick={removeFromBookmark} className="ml-2">
+              <button onClick={removeFromBookmark} className="mr-2 bg-slate-200 dark:bg-slate-900 rounded-2xl p-2">
                 <Bookmark fill="#fff" />
               </button>
             ) : (
-              <button onClick={addToBookmark} className="ml-2">
+              <button onClick={addToBookmark} className="mr-2 bg-slate-200 dark:bg-slate-900 rounded-2xl p-2">
                 <Bookmark />
               </button>
             )}
-            <button>
+            <Link href={`/export/${course?.id}`} className="bg-slate-200 dark:bg-slate-900 rounded-2xl p-2 cursor-pointer">
               <FileDown />
-            </button>
+            </Link>
           </div>
         </div>
 
-        <CommentSec />
+        <CommentSec author={author} course={course} />
       </>
     );
   };
 
-  export function AvatarComp() {
+  export function AvatarComp({user}: {user: any}) {
     return (
       <Avatar className="w-[40px] h-[40px]">
-        <AvatarImage src="https://github.com/shadcn.png" />
-        <AvatarFallback>CN</AvatarFallback>
+        <AvatarImage src={user?.image} />
+        <AvatarFallback>{user?.name[0]}</AvatarFallback>
       </Avatar>
     );
   }

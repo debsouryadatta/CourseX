@@ -13,16 +13,19 @@ importers:
         version: 2.2.0(@prisma/client@5.15.1(prisma@5.15.1))
       '@langchain/core':
         specifier: ^0.2.9
-        version: 0.2.9(langchain@0.2.6(axios@1.7.2)(ignore@5.3.1)(openai@4.52.0)(youtube-transcript@1.2.1))(openai@4.52.0)
+        version: 0.2.9(langchain@0.2.6(axios@1.7.2)(ignore@5.3.1)(openai@4.52.0)(ws@8.18.0)(youtube-transcript@1.2.1))(openai@4.52.0)
       '@langchain/groq':
         specifier: ^0.0.13
-        version: 0.0.13(langchain@0.2.6(axios@1.7.2)(ignore@5.3.1)(openai@4.52.0)(youtube-transcript@1.2.1))(openai@4.52.0)
+        version: 0.0.13(langchain@0.2.6(axios@1.7.2)(ignore@5.3.1)(openai@4.52.0)(ws@8.18.0)(youtube-transcript@1.2.1))(openai@4.52.0)
       '@prisma/client':
         specifier: 5.15.1
         version: 5.15.1(prisma@5.15.1)
       '@radix-ui/react-avatar':
         specifier: ^1.1.0
         version: 1.1.0(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@radix-ui/react-dialog':
+        specifier: ^1.1.1
+        version: 1.1.1(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@radix-ui/react-dropdown-menu':
         specifier: ^2.1.1
         version: 2.1.1(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -53,9 +56,12 @@ importers:
       framer-motion:
         specifier: ^11.2.11
         version: 11.2.11(@emotion/is-prop-valid@1.2.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      html2pdf.js:
+        specifier: ^0.10.2
+        version: 0.10.2
       langchain:
         specifier: ^0.2.6
-        version: 0.2.6(axios@1.7.2)(ignore@5.3.1)(openai@4.52.0)(youtube-transcript@1.2.1)
+        version: 0.2.6(axios@1.7.2)(ignore@5.3.1)(openai@4.52.0)(ws@8.18.0)(youtube-transcript@1.2.1)
       lucide:
         specifier: ^0.396.0
         version: 0.396.0
@@ -419,6 +425,19 @@ packages:
       '@types/react':
         optional: true
 
+  '@radix-ui/react-dialog@1.1.1':
+    resolution: {integrity: sha512-zysS+iU4YP3STKNS6USvFVqI4qqx8EpiwmT5TuCApVEBca+eRCbONi4EgzfNSuVnOXvC5UPHHMjs8RXO6DH9Bg==}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+
   '@radix-ui/react-direction@1.1.0':
     resolution: {integrity: sha512-BUuBvgThEiAXh2DWu93XsT+a3aWrGqolGlqqw5VU1kG7p/ZH2cuDlM1sRLNnY3QcBS69UIz2mcKhMxDsdewhjg==}
     peerDependencies:
@@ -721,6 +740,9 @@ packages:
   '@types/prop-types@15.7.12':
     resolution: {integrity: sha512-5zvhXYtRNRluoE/jAp4GVsSduVUzNWKkOZrCDBWYtE7biZywwdC2AcEzg+cSMLFRfVgeAFqpfNabiPjxFddV1Q==}
 
+  '@types/raf@3.4.3':
+    resolution: {integrity: sha512-c4YAvMedbPZ5tEyxzQdMoOhhJ4RD3rngZIdwC2/qDN3d7JpEhB6fiBRKVY1lg5B7Wk+uPBjn5f39j1/2MY1oOw==}
+
   '@types/react-dom@18.3.0':
     resolution: {integrity: sha512-EhwApuTmMBmXuFOikhQLIBUn6uFg81SwLMOAUgodJF14SOBOCMdU04gDoYi0WOJJHD144TL32z4yDqCW3dnkQg==}
 
@@ -873,6 +895,11 @@ packages:
   asynckit@0.4.0:
     resolution: {integrity: sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==}
 
+  atob@2.1.2:
+    resolution: {integrity: sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==}
+    engines: {node: '>= 4.5.0'}
+    hasBin: true
+
   available-typed-arrays@1.0.7:
     resolution: {integrity: sha512-wvUjBtSGN7+7SjNpq/9M2Tg350UZD3q62IFZLbRAR1bSMlCo1ZaeW+BJ+D090e4hIIZLBcTDWe4Mh4jvUDajzQ==}
     engines: {node: '>= 0.4'}
@@ -893,6 +920,10 @@ packages:
   base-64@0.1.0:
     resolution: {integrity: sha512-Y5gU45svrR5tI2Vt/X9GPd3L0HNIKzGu202EjxrXMpuc2V2CiKgemAbUUsqYmZJvPtCXoUKjNZwBJzsNScUbXA==}
 
+  base64-arraybuffer@1.0.2:
+    resolution: {integrity: sha512-I3yl4r9QB5ZRY3XuJVEPfc2XhZO6YweFPI+UovAzn+8/hb3oJ6lnysaFcjVpkCPfVWFUDvoZ8kmVDP7WyRtYtQ==}
+    engines: {node: '>= 0.6.0'}
+
   base64-js@1.5.1:
     resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}
 
@@ -912,6 +943,11 @@ packages:
   braces@3.0.3:
     resolution: {integrity: sha512-yQbXgO/OSZVD2IsiLlro+7Hf6Q18EJrKSEsdoMzKePKXct3gvD8oLcOQdIzGupr5Fj+EDe8gO/lxc1BzfMpxvA==}
     engines: {node: '>=8'}
+
+  btoa@1.2.1:
+    resolution: {integrity: sha512-SB4/MIGlsiVkMcHmT+pSmIPoNDoHg+7cMzmt3Uxt628MTz2487DKSqK/fuhFBrkuqrYv5UCEnACpF4dTFNKc/g==}
+    engines: {node: '>= 0.4.0'}
+    hasBin: true
 
   busboy@1.6.0:
     resolution: {integrity: sha512-8SFQbg/0hQ9xy3UNTB0YEnsNBbWfhf7RtnzpL7TkBiTBRfrQ9Fxcnz7VJsleJpyp6rVLvXiuORqjlHi5q+PYuA==}
@@ -935,6 +971,10 @@ packages:
 
   caniuse-lite@1.0.30001636:
     resolution: {integrity: sha512-bMg2vmr8XBsbL6Lr0UHXy/21m84FTxDLWn2FSqMd5PrlbMxwJlQnC2YWYxVgp66PZE+BBNF2jYQUBKCo1FDeZg==}
+
+  canvg@3.0.10:
+    resolution: {integrity: sha512-qwR2FRNO9NlzTeKIPIKpnTY6fqwuYSequ8Ru8c0YkYU7U0oW+hLUvWadLvAu1Rl72OMNiFhoLu4f8eUjQ7l/+Q==}
+    engines: {node: '>=10.0.0'}
 
   chalk@4.1.2:
     resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==}
@@ -987,12 +1027,18 @@ packages:
     resolution: {integrity: sha512-U71cyTamuh1CRNCfpGY6to28lxvNwPG4Guz/EVjgf3Jmzv0vlDp1atT9eS5dDjMYHucpHbWns6Lwf3BKz6svdw==}
     engines: {node: '>= 0.6'}
 
+  core-js@3.37.1:
+    resolution: {integrity: sha512-Xn6qmxrQZyB0FFY8E3bgRXei3lWDJHhvI+u0q9TKIYM49G8pAr0FgnnrFRAmsbptZL1yxRADVXn+x5AGsbBfyw==}
+
   cross-spawn@7.0.3:
     resolution: {integrity: sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==}
     engines: {node: '>= 8'}
 
   crypt@0.0.2:
     resolution: {integrity: sha512-mCxBlsHFYh9C+HVpiEacem8FEBnMXgU9gy4zmNC+SXAZNB/1idgp/aulFJ4FgCi7GPEVbfyng092GqL2k2rmow==}
+
+  css-line-break@2.1.0:
+    resolution: {integrity: sha512-FHcKFCZcAha3LwfVBhCQbW2nCNbkZXn7KVUJcsT5/P8YmfsVja0FMPJr0B903j/E69HUphKiV9iQArX8SDYA4w==}
 
   cssesc@3.0.0:
     resolution: {integrity: sha512-/Tb/JcjK111nNScGob5MNtsntNM1aCNUDipB/TkwZFhyDrrE47SOx/18wF2bbjgc3ZzCSKW1T5nt5EbFoAz/Vg==}
@@ -1081,6 +1127,9 @@ packages:
     resolution: {integrity: sha512-yS+Q5i3hBf7GBkd4KG8a7eBNNWNGLTaEwwYWUijIYM7zrlYDM0BFXHjjPWlWZ1Rg7UaddZeIDmi9jF3HmqiQ2w==}
     engines: {node: '>=6.0.0'}
 
+  dompurify@2.5.6:
+    resolution: {integrity: sha512-zUTaUBO8pY4+iJMPE1B9XlO2tXVYIcEA4SNGtvDELzTSCQO7RzH+j7S180BmhmJId78lqGU2z19vgVx2Sxs/PQ==}
+
   dotenv@16.4.5:
     resolution: {integrity: sha512-ZmdL2rui+eB2YwhsWzjInR8LldtZHGDoQ1ugH85ppHKwpUHL7j7rN0Ti9NCnGiQbhaZ11FpR+7ao1dNsmduNUg==}
     engines: {node: '>=12'}
@@ -1128,6 +1177,9 @@ packages:
   es-to-primitive@1.2.1:
     resolution: {integrity: sha512-QCOllgZJtaUo9miYBcLChTUaHNjJF3PYs1VidD7AwiEj1kYxKeQTctLAezAOH5ZKRH0g2IgPn6KwB4IT8iRpvA==}
     engines: {node: '>= 0.4'}
+
+  es6-promise@4.2.8:
+    resolution: {integrity: sha512-HJDGx5daxeIvxdBxvG2cb9g4tEvwIk3i8+nhX0yGrYmZUzbkdg8QbDevheDB8gd0//uPj4c1EQua8Q+MViT0/w==}
 
   escape-string-regexp@4.0.0:
     resolution: {integrity: sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==}
@@ -1256,6 +1308,9 @@ packages:
 
   fastq@1.17.1:
     resolution: {integrity: sha512-sRVD3lWVIXWg6By68ZN7vho9a1pQcN/WBFaAAsDDFzlJjvoGx0P8z7V1t72grFJfJhu3YPZBuu25f7Kaw2jN1w==}
+
+  fflate@0.4.8:
+    resolution: {integrity: sha512-FJqqoDBR00Mdj9ppamLa/Y7vxm+PRmNWA67N846RvsoYVMKB4q3y/de5PA7gUmRMYK/8CMz2GDZQmCRN1wBcWA==}
 
   file-entry-cache@6.0.1:
     resolution: {integrity: sha512-7Gps/XWymbLk2QLYK4NzpMOrYjMhdIxXuIvy2QBsLE6ljuodKvdkWs/cpyJJ3CVIVpH0Oi1Hvg1ovbMzLdFBBg==}
@@ -1421,6 +1476,13 @@ packages:
   hasown@2.0.2:
     resolution: {integrity: sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ==}
     engines: {node: '>= 0.4'}
+
+  html2canvas@1.4.1:
+    resolution: {integrity: sha512-fPU6BHNpsyIhr8yyMpTLLxAbkaK8ArIBcmZIRiBLiDhjeqvXolaEmDGmELFuX9I4xDcaKKcJl+TKZLqruBbmWA==}
+    engines: {node: '>=8.0.0'}
+
+  html2pdf.js@0.10.2:
+    resolution: {integrity: sha512-WyHVeMb18Bp7vYTmBv1GVsThH//K7SRfHdSdhHPkl4JvyQarNQXnailkYn0QUbRRmnN5rdbbmSIGEsPZtzPy2Q==}
 
   humanize-ms@1.2.1:
     resolution: {integrity: sha512-Fl70vYtsAFb/C06PTS9dZBo7ihau+Tu/DNCk/OyHhea07S+aeMWpFFkUaXRa8fI+ScZbEI8dfSxwY7gxZ9SAVQ==}
@@ -1615,6 +1677,9 @@ packages:
   jsonpointer@5.0.1:
     resolution: {integrity: sha512-p/nXbhSEcu3pZRdkW1OfJhpsVtW1gd4Wa1fnQc9YLiTfAjn0312eMKimbdIQzuZl9aa9xUGaRlP9T/CJE/ditQ==}
     engines: {node: '>=0.10.0'}
+
+  jspdf@2.5.1:
+    resolution: {integrity: sha512-hXObxz7ZqoyhxET78+XR34Xu2qFGrJJ2I2bE5w4SM8eFaFEkW2xcGRVUss360fYelwRSid/jT078kbNvmoW0QA==}
 
   jsx-ast-utils@3.3.5:
     resolution: {integrity: sha512-ZZow9HBI5O6EPgSJLUb8n2NKgmVWTwCvHGwFuJlMjvLFqlGG6pjirPhtdsseaLZjSibD8eegzmYpUZwoIlj2cQ==}
@@ -2082,6 +2147,9 @@ packages:
     resolution: {integrity: sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==}
     engines: {node: '>=8'}
 
+  performance-now@2.1.0:
+    resolution: {integrity: sha512-7EAHlyLHI56VEIdK57uwHdHKIaAGbnXPiw0yWbarQZOKaKpvUIgW0jWRVLiatnM+XXlSwsanIBH/hzGMJulMow==}
+
   picocolors@1.0.1:
     resolution: {integrity: sha512-anP1Z8qwhkbmu7MFP5iTt+wQKXgwzf7zTyGlcdzabySa9vd0Xt392U0rVmz9poOaBj0uHJKyyo9/upk0HrEQew==}
 
@@ -2179,6 +2247,9 @@ packages:
   queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
 
+  raf@3.4.1:
+    resolution: {integrity: sha512-Sq4CW4QhwOHE8ucn6J34MqtZCeWFP2aQSmrlroYgqAV1PjStIhJXxYuTgUIfkEk7zTLjmIjLmU5q+fbD1NnOJA==}
+
   react-dom@18.3.1:
     resolution: {integrity: sha512-5m4nQKp+rZRb09LNH59GM4BxTh9251/ylbKIbpe7TpGxfJ+9kv6BLkLBXIjjspbgbnIBNqlI23tRnTWT0snUIw==}
     peerDependencies:
@@ -2232,6 +2303,9 @@ packages:
     resolution: {integrity: sha512-fmfw4XgoDke3kdI6h4xcUz1dG8uaiv5q9gcEwLS4Pnth2kxT+GZ7YehS1JTMGBQmtV7Y4GFGbs2re2NqhdozUg==}
     engines: {node: '>= 0.4'}
 
+  regenerator-runtime@0.13.11:
+    resolution: {integrity: sha512-kY1AZVr2Ra+t+piVaJ4gxaFaReZVH40AKNo7UCX6W+dEwBo/2oZJzqfuN1qLq1oL45o56cPaTXELwrTh8Fpggg==}
+
   regenerator-runtime@0.14.1:
     resolution: {integrity: sha512-dYnhHh0nJoMfnkZs6GmmhFknAGRrLznOu5nc9ML+EJxGvrx6H7teuevqVqCuPcPK//3eDrrjQhehXVx9cnkGdw==}
 
@@ -2261,6 +2335,10 @@ packages:
   reusify@1.0.4:
     resolution: {integrity: sha512-U9nH88a3fc/ekCF1l0/UP1IosiuIjyTh7hBvXVMHYgVcfGvt897Xguj2UOLDeI5BG2m7/uwyaLVT6fbtCwTyzw==}
     engines: {iojs: '>=1.0.0', node: '>=0.10.0'}
+
+  rgbcolor@1.0.1:
+    resolution: {integrity: sha512-9aZLIrhRaD97sgVhtJOW6ckOEh6/GnvQtdVNfdZ6s67+3/XwLS9lBcQYzEEhYVeUowN7pRzMLsyGhK2i/xvWbw==}
+    engines: {node: '>= 0.8.15'}
 
   rimraf@3.0.2:
     resolution: {integrity: sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==}
@@ -2327,6 +2405,10 @@ packages:
   source-map-js@1.2.0:
     resolution: {integrity: sha512-itJW8lvSA0TXEphiRoawsCksnlf8SyvmFzIhltqAHluXd88pkCd+cXJVHTDwdCr0IzwptSm035IHQktUu1QUMg==}
     engines: {node: '>=0.10.0'}
+
+  stackblur-canvas@2.7.0:
+    resolution: {integrity: sha512-yf7OENo23AGJhBriGx0QivY5JP6Y1HbrrDI6WLt6C5auYZXlQrheoY8hD4ibekFKz1HOfE48Ww8kMWMnJD/zcQ==}
+    engines: {node: '>=0.1.14'}
 
   streamsearch@1.1.0:
     resolution: {integrity: sha512-Mcc5wHehp9aXz1ax6bZUyY5afg9u2rv5cqQI3mRrYkGC8rW2hM02jWuwjtL++LS5qinSyhj2QfLyNsuc+VsExg==}
@@ -2397,6 +2479,10 @@ packages:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
 
+  svg-pathdata@6.0.3:
+    resolution: {integrity: sha512-qsjeeq5YjBZ5eMdFuUa4ZosMLxgr5RZ+F+Y1OrDhuOCEInRMA3x74XdBtggJcj9kOeInz0WE+LgCPDkZFlBYJw==}
+    engines: {node: '>=12.0.0'}
+
   tailwind-merge@2.3.0:
     resolution: {integrity: sha512-vkYrLpIP+lgR0tQCG6AP7zZXCTLc1Lnv/CCRT3BqJ9CZ3ui2++GPaGb1x/ILsINIMSYqqvrpqjUFsMNLlW99EA==}
 
@@ -2413,6 +2499,9 @@ packages:
   tapable@2.2.1:
     resolution: {integrity: sha512-GNzQvQTOIP6RyTfE2Qxb8ZVlNmw0n88vp1szwWRimP02mnTsx3Wtn5qRdqY9w2XduFNUgvOwhNnQsjwCp+kqaQ==}
     engines: {node: '>=6'}
+
+  text-segmentation@1.0.3:
+    resolution: {integrity: sha512-iOiPUo/BGnZ6+54OsWxZidGCsdU8YbE4PSpdPinp7DeMtUJNJBoJ/ouUSTJjHkh1KntHaltHl/gDs2FC4i5+Nw==}
 
   text-table@0.2.0:
     resolution: {integrity: sha512-N+8UisAXDGk8PFXP4HAzVR9nbfmVJ3zYLAWiTIoqC5v5isinhr+r5uaO8+7r3BMfuNIufIsA7RdpVgacC2cSpw==}
@@ -2507,6 +2596,9 @@ packages:
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
 
+  utrie@1.0.2:
+    resolution: {integrity: sha512-1MLa5ouZiOmQzUbjbu9VmjLzn1QLXBhwpUa7kdLUQK+KQ5KA9I1vk5U4YHe/X2Ch7PYnJfWuWT+VbuxbGwljhw==}
+
   uuid@9.0.1:
     resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
     hasBin: true
@@ -2559,6 +2651,18 @@ packages:
 
   wrappy@1.0.2:
     resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==}
+
+  ws@8.18.0:
+    resolution: {integrity: sha512-8VbfWfHLbbwu3+N6OKsOMpBdT4kXPDDB9cJk2bJ6mh9ucxdlnNvH1e+roYkKmN9Nxw2yjz7VzeO9oOz2zJ04Pw==}
+    engines: {node: '>=10.0.0'}
+    peerDependencies:
+      bufferutil: ^4.0.1
+      utf-8-validate: '>=5.0.2'
+    peerDependenciesMeta:
+      bufferutil:
+        optional: true
+      utf-8-validate:
+        optional: true
 
   yaml@2.4.5:
     resolution: {integrity: sha512-aBx2bnqDzVOyNKfsysjA2ms5ZlnjSAW2eG3/L5G/CSujfjLJTJsEw1bGw8kCf04KodQWk1pxlGnZ56CRxiawmg==}
@@ -2694,13 +2798,13 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.4.15
 
-  '@langchain/core@0.2.9(langchain@0.2.6(axios@1.7.2)(ignore@5.3.1)(openai@4.52.0)(youtube-transcript@1.2.1))(openai@4.52.0)':
+  '@langchain/core@0.2.9(langchain@0.2.6(axios@1.7.2)(ignore@5.3.1)(openai@4.52.0)(ws@8.18.0)(youtube-transcript@1.2.1))(openai@4.52.0)':
     dependencies:
       ansi-styles: 5.2.0
       camelcase: 6.3.0
       decamelize: 1.2.0
       js-tiktoken: 1.0.12
-      langsmith: 0.1.32(@langchain/core@0.2.9(langchain@0.2.6(axios@1.7.2)(ignore@5.3.1)(openai@4.52.0)(youtube-transcript@1.2.1))(openai@4.52.0))(langchain@0.2.6(axios@1.7.2)(ignore@5.3.1)(openai@4.52.0)(youtube-transcript@1.2.1))(openai@4.52.0)
+      langsmith: 0.1.32(@langchain/core@0.2.9(langchain@0.2.6(axios@1.7.2)(ignore@5.3.1)(openai@4.52.0)(ws@8.18.0)(youtube-transcript@1.2.1))(openai@4.52.0))(langchain@0.2.6(axios@1.7.2)(ignore@5.3.1)(openai@4.52.0)(ws@8.18.0)(youtube-transcript@1.2.1))(openai@4.52.0)
       ml-distance: 4.0.1
       mustache: 4.2.0
       p-queue: 6.6.2
@@ -2712,10 +2816,10 @@ snapshots:
       - langchain
       - openai
 
-  '@langchain/groq@0.0.13(langchain@0.2.6(axios@1.7.2)(ignore@5.3.1)(openai@4.52.0)(youtube-transcript@1.2.1))(openai@4.52.0)':
+  '@langchain/groq@0.0.13(langchain@0.2.6(axios@1.7.2)(ignore@5.3.1)(openai@4.52.0)(ws@8.18.0)(youtube-transcript@1.2.1))(openai@4.52.0)':
     dependencies:
-      '@langchain/core': 0.2.9(langchain@0.2.6(axios@1.7.2)(ignore@5.3.1)(openai@4.52.0)(youtube-transcript@1.2.1))(openai@4.52.0)
-      '@langchain/openai': 0.1.3(langchain@0.2.6(axios@1.7.2)(ignore@5.3.1)(openai@4.52.0)(youtube-transcript@1.2.1))
+      '@langchain/core': 0.2.9(langchain@0.2.6(axios@1.7.2)(ignore@5.3.1)(openai@4.52.0)(ws@8.18.0)(youtube-transcript@1.2.1))(openai@4.52.0)
+      '@langchain/openai': 0.1.3(langchain@0.2.6(axios@1.7.2)(ignore@5.3.1)(openai@4.52.0)(ws@8.18.0)(youtube-transcript@1.2.1))
       groq-sdk: 0.3.3
       zod: 3.23.8
       zod-to-json-schema: 3.23.1(zod@3.23.8)
@@ -2724,9 +2828,9 @@ snapshots:
       - langchain
       - openai
 
-  '@langchain/openai@0.1.3(langchain@0.2.6(axios@1.7.2)(ignore@5.3.1)(openai@4.52.0)(youtube-transcript@1.2.1))':
+  '@langchain/openai@0.1.3(langchain@0.2.6(axios@1.7.2)(ignore@5.3.1)(openai@4.52.0)(ws@8.18.0)(youtube-transcript@1.2.1))':
     dependencies:
-      '@langchain/core': 0.2.9(langchain@0.2.6(axios@1.7.2)(ignore@5.3.1)(openai@4.52.0)(youtube-transcript@1.2.1))(openai@4.52.0)
+      '@langchain/core': 0.2.9(langchain@0.2.6(axios@1.7.2)(ignore@5.3.1)(openai@4.52.0)(ws@8.18.0)(youtube-transcript@1.2.1))(openai@4.52.0)
       js-tiktoken: 1.0.12
       openai: 4.52.0
       zod: 3.23.8
@@ -2735,9 +2839,9 @@ snapshots:
       - encoding
       - langchain
 
-  '@langchain/openai@0.2.0(langchain@0.2.6(axios@1.7.2)(ignore@5.3.1)(openai@4.52.0)(youtube-transcript@1.2.1))':
+  '@langchain/openai@0.2.0(langchain@0.2.6(axios@1.7.2)(ignore@5.3.1)(openai@4.52.0)(ws@8.18.0)(youtube-transcript@1.2.1))':
     dependencies:
-      '@langchain/core': 0.2.9(langchain@0.2.6(axios@1.7.2)(ignore@5.3.1)(openai@4.52.0)(youtube-transcript@1.2.1))(openai@4.52.0)
+      '@langchain/core': 0.2.9(langchain@0.2.6(axios@1.7.2)(ignore@5.3.1)(openai@4.52.0)(ws@8.18.0)(youtube-transcript@1.2.1))(openai@4.52.0)
       js-tiktoken: 1.0.12
       openai: 4.52.0
       zod: 3.23.8
@@ -2746,9 +2850,9 @@ snapshots:
       - encoding
       - langchain
 
-  '@langchain/textsplitters@0.0.3(langchain@0.2.6(axios@1.7.2)(ignore@5.3.1)(openai@4.52.0)(youtube-transcript@1.2.1))(openai@4.52.0)':
+  '@langchain/textsplitters@0.0.3(langchain@0.2.6(axios@1.7.2)(ignore@5.3.1)(openai@4.52.0)(ws@8.18.0)(youtube-transcript@1.2.1))(openai@4.52.0)':
     dependencies:
-      '@langchain/core': 0.2.9(langchain@0.2.6(axios@1.7.2)(ignore@5.3.1)(openai@4.52.0)(youtube-transcript@1.2.1))(openai@4.52.0)
+      '@langchain/core': 0.2.9(langchain@0.2.6(axios@1.7.2)(ignore@5.3.1)(openai@4.52.0)(ws@8.18.0)(youtube-transcript@1.2.1))(openai@4.52.0)
       js-tiktoken: 1.0.12
     transitivePeerDependencies:
       - langchain
@@ -2884,6 +2988,28 @@ snapshots:
       react: 18.3.1
     optionalDependencies:
       '@types/react': 18.3.3
+
+  '@radix-ui/react-dialog@1.1.1(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@radix-ui/primitive': 1.1.0
+      '@radix-ui/react-compose-refs': 1.1.0(@types/react@18.3.3)(react@18.3.1)
+      '@radix-ui/react-context': 1.1.0(@types/react@18.3.3)(react@18.3.1)
+      '@radix-ui/react-dismissable-layer': 1.1.0(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@radix-ui/react-focus-guards': 1.1.0(@types/react@18.3.3)(react@18.3.1)
+      '@radix-ui/react-focus-scope': 1.1.0(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@radix-ui/react-id': 1.1.0(@types/react@18.3.3)(react@18.3.1)
+      '@radix-ui/react-portal': 1.1.1(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@radix-ui/react-presence': 1.1.0(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@radix-ui/react-primitive': 2.0.0(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@radix-ui/react-slot': 1.1.0(@types/react@18.3.3)(react@18.3.1)
+      '@radix-ui/react-use-controllable-state': 1.1.0(@types/react@18.3.3)(react@18.3.1)
+      aria-hidden: 1.2.4
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+      react-remove-scroll: 2.5.7(@types/react@18.3.3)(react@18.3.1)
+    optionalDependencies:
+      '@types/react': 18.3.3
+      '@types/react-dom': 18.3.0
 
   '@radix-ui/react-direction@1.1.0(@types/react@18.3.3)(react@18.3.1)':
     dependencies:
@@ -3178,6 +3304,9 @@ snapshots:
 
   '@types/prop-types@15.7.12': {}
 
+  '@types/raf@3.4.3':
+    optional: true
+
   '@types/react-dom@18.3.0':
     dependencies:
       '@types/react': 18.3.3
@@ -3363,6 +3492,8 @@ snapshots:
 
   asynckit@0.4.0: {}
 
+  atob@2.1.2: {}
+
   available-typed-arrays@1.0.7:
     dependencies:
       possible-typed-array-names: 1.0.0
@@ -3385,6 +3516,8 @@ snapshots:
 
   base-64@0.1.0: {}
 
+  base64-arraybuffer@1.0.2: {}
+
   base64-js@1.5.1: {}
 
   binary-extensions@2.3.0: {}
@@ -3403,6 +3536,8 @@ snapshots:
   braces@3.0.3:
     dependencies:
       fill-range: 7.1.1
+
+  btoa@1.2.1: {}
 
   busboy@1.6.0:
     dependencies:
@@ -3423,6 +3558,18 @@ snapshots:
   camelcase@6.3.0: {}
 
   caniuse-lite@1.0.30001636: {}
+
+  canvg@3.0.10:
+    dependencies:
+      '@babel/runtime': 7.24.7
+      '@types/raf': 3.4.3
+      core-js: 3.37.1
+      raf: 3.4.1
+      regenerator-runtime: 0.13.11
+      rgbcolor: 1.0.1
+      stackblur-canvas: 2.7.0
+      svg-pathdata: 6.0.3
+    optional: true
 
   chalk@4.1.2:
     dependencies:
@@ -3471,6 +3618,9 @@ snapshots:
 
   cookie@0.6.0: {}
 
+  core-js@3.37.1:
+    optional: true
+
   cross-spawn@7.0.3:
     dependencies:
       path-key: 3.1.1
@@ -3478,6 +3628,10 @@ snapshots:
       which: 2.0.2
 
   crypt@0.0.2: {}
+
+  css-line-break@2.1.0:
+    dependencies:
+      utrie: 1.0.2
 
   cssesc@3.0.0: {}
 
@@ -3553,6 +3707,9 @@ snapshots:
   doctrine@3.0.0:
     dependencies:
       esutils: 2.0.3
+
+  dompurify@2.5.6:
+    optional: true
 
   dotenv@16.4.5: {}
 
@@ -3658,6 +3815,8 @@ snapshots:
       is-callable: 1.2.7
       is-date-object: 1.0.5
       is-symbol: 1.0.4
+
+  es6-promise@4.2.8: {}
 
   escape-string-regexp@4.0.0: {}
 
@@ -3878,6 +4037,8 @@ snapshots:
     dependencies:
       reusify: 1.0.4
 
+  fflate@0.4.8: {}
+
   file-entry-cache@6.0.1:
     dependencies:
       flat-cache: 3.2.0
@@ -4059,6 +4220,17 @@ snapshots:
   hasown@2.0.2:
     dependencies:
       function-bind: 1.1.2
+
+  html2canvas@1.4.1:
+    dependencies:
+      css-line-break: 2.1.0
+      text-segmentation: 1.0.3
+
+  html2pdf.js@0.10.2:
+    dependencies:
+      es6-promise: 4.2.8
+      html2canvas: 1.4.1
+      jspdf: 2.5.1
 
   humanize-ms@1.2.1:
     dependencies:
@@ -4242,6 +4414,18 @@ snapshots:
 
   jsonpointer@5.0.1: {}
 
+  jspdf@2.5.1:
+    dependencies:
+      '@babel/runtime': 7.24.7
+      atob: 2.1.2
+      btoa: 1.2.1
+      fflate: 0.4.8
+    optionalDependencies:
+      canvg: 3.0.10
+      core-js: 3.37.1
+      dompurify: 2.5.6
+      html2canvas: 1.4.1
+
   jsx-ast-utils@3.3.5:
     dependencies:
       array-includes: 3.1.8
@@ -4253,17 +4437,17 @@ snapshots:
     dependencies:
       json-buffer: 3.0.1
 
-  langchain@0.2.6(axios@1.7.2)(ignore@5.3.1)(openai@4.52.0)(youtube-transcript@1.2.1):
+  langchain@0.2.6(axios@1.7.2)(ignore@5.3.1)(openai@4.52.0)(ws@8.18.0)(youtube-transcript@1.2.1):
     dependencies:
-      '@langchain/core': 0.2.9(langchain@0.2.6(axios@1.7.2)(ignore@5.3.1)(openai@4.52.0)(youtube-transcript@1.2.1))(openai@4.52.0)
-      '@langchain/openai': 0.2.0(langchain@0.2.6(axios@1.7.2)(ignore@5.3.1)(openai@4.52.0)(youtube-transcript@1.2.1))
-      '@langchain/textsplitters': 0.0.3(langchain@0.2.6(axios@1.7.2)(ignore@5.3.1)(openai@4.52.0)(youtube-transcript@1.2.1))(openai@4.52.0)
+      '@langchain/core': 0.2.9(langchain@0.2.6(axios@1.7.2)(ignore@5.3.1)(openai@4.52.0)(ws@8.18.0)(youtube-transcript@1.2.1))(openai@4.52.0)
+      '@langchain/openai': 0.2.0(langchain@0.2.6(axios@1.7.2)(ignore@5.3.1)(openai@4.52.0)(ws@8.18.0)(youtube-transcript@1.2.1))
+      '@langchain/textsplitters': 0.0.3(langchain@0.2.6(axios@1.7.2)(ignore@5.3.1)(openai@4.52.0)(ws@8.18.0)(youtube-transcript@1.2.1))(openai@4.52.0)
       binary-extensions: 2.3.0
       js-tiktoken: 1.0.12
       js-yaml: 4.1.0
       jsonpointer: 5.0.1
       langchainhub: 0.0.11
-      langsmith: 0.1.32(@langchain/core@0.2.9(langchain@0.2.6(axios@1.7.2)(ignore@5.3.1)(openai@4.52.0)(youtube-transcript@1.2.1))(openai@4.52.0))(langchain@0.2.6(axios@1.7.2)(ignore@5.3.1)(openai@4.52.0)(youtube-transcript@1.2.1))(openai@4.52.0)
+      langsmith: 0.1.32(@langchain/core@0.2.9(langchain@0.2.6(axios@1.7.2)(ignore@5.3.1)(openai@4.52.0)(ws@8.18.0)(youtube-transcript@1.2.1))(openai@4.52.0))(langchain@0.2.6(axios@1.7.2)(ignore@5.3.1)(openai@4.52.0)(ws@8.18.0)(youtube-transcript@1.2.1))(openai@4.52.0)
       ml-distance: 4.0.1
       openapi-types: 12.1.3
       p-retry: 4.6.2
@@ -4274,6 +4458,7 @@ snapshots:
     optionalDependencies:
       axios: 1.7.2
       ignore: 5.3.1
+      ws: 8.18.0
       youtube-transcript: 1.2.1
     transitivePeerDependencies:
       - encoding
@@ -4281,7 +4466,7 @@ snapshots:
 
   langchainhub@0.0.11: {}
 
-  langsmith@0.1.32(@langchain/core@0.2.9(langchain@0.2.6(axios@1.7.2)(ignore@5.3.1)(openai@4.52.0)(youtube-transcript@1.2.1))(openai@4.52.0))(langchain@0.2.6(axios@1.7.2)(ignore@5.3.1)(openai@4.52.0)(youtube-transcript@1.2.1))(openai@4.52.0):
+  langsmith@0.1.32(@langchain/core@0.2.9(langchain@0.2.6(axios@1.7.2)(ignore@5.3.1)(openai@4.52.0)(ws@8.18.0)(youtube-transcript@1.2.1))(openai@4.52.0))(langchain@0.2.6(axios@1.7.2)(ignore@5.3.1)(openai@4.52.0)(ws@8.18.0)(youtube-transcript@1.2.1))(openai@4.52.0):
     dependencies:
       '@types/uuid': 9.0.8
       commander: 10.0.1
@@ -4289,8 +4474,8 @@ snapshots:
       p-retry: 4.6.2
       uuid: 9.0.1
     optionalDependencies:
-      '@langchain/core': 0.2.9(langchain@0.2.6(axios@1.7.2)(ignore@5.3.1)(openai@4.52.0)(youtube-transcript@1.2.1))(openai@4.52.0)
-      langchain: 0.2.6(axios@1.7.2)(ignore@5.3.1)(openai@4.52.0)(youtube-transcript@1.2.1)
+      '@langchain/core': 0.2.9(langchain@0.2.6(axios@1.7.2)(ignore@5.3.1)(openai@4.52.0)(ws@8.18.0)(youtube-transcript@1.2.1))(openai@4.52.0)
+      langchain: 0.2.6(axios@1.7.2)(ignore@5.3.1)(openai@4.52.0)(ws@8.18.0)(youtube-transcript@1.2.1)
       openai: 4.52.0
 
   language-subtag-registry@0.3.23: {}
@@ -4565,6 +4750,9 @@ snapshots:
 
   path-type@4.0.0: {}
 
+  performance-now@2.1.0:
+    optional: true
+
   picocolors@1.0.1: {}
 
   picomatch@2.3.1: {}
@@ -4645,6 +4833,11 @@ snapshots:
 
   queue-microtask@1.2.3: {}
 
+  raf@3.4.1:
+    dependencies:
+      performance-now: 2.1.0
+    optional: true
+
   react-dom@18.3.1(react@18.3.1):
     dependencies:
       loose-envify: 1.4.0
@@ -4703,6 +4896,9 @@ snapshots:
       globalthis: 1.0.4
       which-builtin-type: 1.1.3
 
+  regenerator-runtime@0.13.11:
+    optional: true
+
   regenerator-runtime@0.14.1: {}
 
   regexp.prototype.flags@1.5.2:
@@ -4731,6 +4927,9 @@ snapshots:
   retry@0.13.1: {}
 
   reusify@1.0.4: {}
+
+  rgbcolor@1.0.1:
+    optional: true
 
   rimraf@3.0.2:
     dependencies:
@@ -4800,6 +4999,9 @@ snapshots:
       react-dom: 18.3.1(react@18.3.1)
 
   source-map-js@1.2.0: {}
+
+  stackblur-canvas@2.7.0:
+    optional: true
 
   streamsearch@1.1.0: {}
 
@@ -4882,6 +5084,9 @@ snapshots:
 
   supports-preserve-symlinks-flag@1.0.0: {}
 
+  svg-pathdata@6.0.3:
+    optional: true
+
   tailwind-merge@2.3.0:
     dependencies:
       '@babel/runtime': 7.24.7
@@ -4918,6 +5123,10 @@ snapshots:
       - ts-node
 
   tapable@2.2.1: {}
+
+  text-segmentation@1.0.3:
+    dependencies:
+      utrie: 1.0.2
 
   text-table@0.2.0: {}
 
@@ -5020,6 +5229,10 @@ snapshots:
 
   util-deprecate@1.0.2: {}
 
+  utrie@1.0.2:
+    dependencies:
+      base64-arraybuffer: 1.0.2
+
   uuid@9.0.1: {}
 
   web-streams-polyfill@3.3.3: {}
@@ -5090,6 +5303,9 @@ snapshots:
       strip-ansi: 7.1.0
 
   wrappy@1.0.2: {}
+
+  ws@8.18.0:
+    optional: true
 
   yaml@2.4.5: {}
 

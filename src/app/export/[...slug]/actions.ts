@@ -2,18 +2,17 @@
 
 import { prisma } from "@/lib/db";
 
-
-export async function getUserCourses(userId: string){
+export const getFullCourseAction = async (courseId: string) => {
     try {
-        const courses = await prisma.course.findMany({
+        const res = await prisma.course.findUnique({
             where: {
-                userId: userId
+                id: courseId,
             },
             include: {
-                user: true,
+                units: true,
             }
         })
-        return courses;
+        return res;
     } catch (error) {
         console.log("Error", error);
         throw error;

@@ -6,7 +6,7 @@ import { auth } from "@/lib/auth";
 export default async function page() {
     const session = await auth()
     const courses = await getUserCourses(session?.user?.id!);
-    console.log("session", session);
+    console.log("courses: ", courses);
     
   return (
     <div>

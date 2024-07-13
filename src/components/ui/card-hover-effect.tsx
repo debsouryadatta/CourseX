@@ -17,6 +17,7 @@ export const HoverEffect = ({
     title: string;
     image: string;
     description: string;
+    user?: any;
   }[] | undefined;
   className?: string;
 }) => {
@@ -70,8 +71,8 @@ export const HoverEffect = ({
             <CardTitle>{item.title}</CardTitle>
             <CardDescription>{item.description.slice(0,70)}...</CardDescription>
             <div className="flex justify-start items-end mt-3">
-              <AvatarComp user={session?.data?.user} />
-              <span className="text-sm ml-1">{session?.data?.user?.name}</span>
+              <AvatarComp user={item?.user} />
+              <span className="text-sm ml-1">{item?.user?.name}</span>
             </div>
 
           </Card>
@@ -138,7 +139,7 @@ export function AvatarComp({user}: {user: any}) {
   return (
     <Avatar className="w-[25px] h-[25px]">
       <AvatarImage src={user?.image} />
-      <AvatarFallback>CN</AvatarFallback>
+      <AvatarFallback>{user?.name[0]}</AvatarFallback>
     </Avatar>
   );
 }
