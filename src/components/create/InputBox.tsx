@@ -13,6 +13,8 @@ import { toast } from "sonner";
 import { generateCourse } from "@/app/create/actions";
 import { useRouter } from "next/navigation";
 
+export const maxDuration = 60;
+
 export function InputBox({session}: {session: any}) {
   const [courseTitle, setCourseTitle] = useState("");
   const [chapters, setChapters] = useState([{ id: 1, title: "" }]);
