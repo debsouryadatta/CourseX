@@ -28,7 +28,20 @@ export default function CommentSec({
 
   const session = useSession();
 
+  const getComments = async () => {
+    try {
+      const res: any = await getCommentsAction(course.id);
+      console.log("Comments", res);
+      
+      setComments(res);
+    } catch (error) {
+      console.log("Error", error);
+      toast("Error fetching comments");
+    }
+  };
+
   const addComment = async () => {
+    
     try {
       setInputValue("");
       if (!session?.data?.user) return toast("Please login to comment");
@@ -37,7 +50,7 @@ export default function CommentSec({
         course.id,
         inputValue
       );
-      setComments([...comments, res]);
+      await getComments();
       toast("Comment added successfully");
     } catch (error) {
       console.log("Error", error);
@@ -63,18 +76,6 @@ export default function CommentSec({
   };
 
   useEffect(() => {
-    const getComments = async () => {
-      try {
-        const res: any = await getCommentsAction(course.id);
-        console.log("Comments", res);
-        
-        setComments(res);
-      } catch (error) {
-        console.log("Error", error);
-        toast("Error fetching comments");
-      }
-    };
-
     getComments();
   }, []);
 
@@ -85,7 +86,7 @@ export default function CommentSec({
           <div>
             <AvatarComp user={session?.data?.user} />
           </div>
-          <form className="w-full" onSubmit={() => console.log("Hello")}>
+          <form className="w-full" onSubmit={(e) => e.preventDefault()}>
             <Input
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
