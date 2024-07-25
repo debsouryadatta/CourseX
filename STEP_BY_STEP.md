@@ -16,3 +16,5 @@
 10. Export as pdf feature:
 - Show the whole course content in a single page, with the option to export as pdf
 - pnpm install html2pdf.js
+
+11. Issue in `pnpm run build` due to langchain library version mismatch, solved it by downgrading the version of nextjs to 14.1.1

@@ -10,8 +10,8 @@
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.2.0",
-    "@langchain/core": "^0.2.9",
-    "@langchain/groq": "^0.0.13",
+    "@langchain/core": "^0.2.18",
+    "@langchain/groq": "^0.0.15",
     "@prisma/client": "5.15.1",
     "@radix-ui/react-avatar": "^1.1.0",
     "@radix-ui/react-dialog": "^1.1.1",
@@ -26,10 +26,10 @@
     "dotenv": "^16.4.5",
     "framer-motion": "^11.2.11",
     "html2pdf.js": "^0.10.2",
-    "langchain": "^0.2.6",
+    "langchain": "^0.2.11",
     "lucide": "^0.396.0",
     "lucide-react": "^0.395.0",
-    "next": "14.2.4",
+    "next": "14.1.1",
     "next-auth": "5.0.0-beta.19",
     "next-themes": "^0.3.0",
     "react": "^18",
@@ -44,11 +44,10 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "eslint": "^8",
-    "eslint-config-next": "14.2.4",
     "postcss": "^8",
     "prisma": "^5.15.1",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5"
+    "typescript": "^5",
+    "webpack-cli": "^5.1.4"
   }
 }
