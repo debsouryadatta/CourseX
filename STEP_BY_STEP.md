@@ -17,4 +17,7 @@
 - Show the whole course content in a single page, with the option to export as pdf
 - pnpm install html2pdf.js
 
-11.  Issue in `pnpm run build` due to langchain library version mismatch, solved it by adding experimental: {serverComponentsExternalPackages: [ '@langchain/core', '@langchain/groq' ]}, into the next config file
+11. Issue in `pnpm run build` due to langchain library version mismatch, solved it by adding experimental: {serverComponentsExternalPackages: [ '@langchain/core', '@langchain/groq' ]}, into the next config file
+12. Function Timeout only - 10Sec in free tier of Vercel, so had to switch to Render.com
+13. Render.com next auth error -> Fixed by adding `trustHost: true` in the nextauth config and also adding a lot of domains in the cloud.console.google.com
+
