@@ -3,6 +3,7 @@ import Google from "next-auth/providers/google";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "./db";
 
+const RENDER_EXTERNAL_URL = "https://coursex-bswq.onrender.com"
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   trustHost: true,
@@ -13,12 +14,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return session;
     },
     async redirect({ url, baseUrl }) {
-      // Allows relative callback URLs
-      if (url.startsWith("/")) return `${baseUrl}${url}`
-      // Allows callback URLs on the same origin
-      else if (new URL(url).origin === baseUrl) return url
-      return baseUrl
-    },
+      const forcedBaseUrl = RENDER_EXTERNAL_URL
+      if (url.startsWith("/")) return `${forcedBaseUrl}${url}`
+      else if (new URL(url).origin === forcedBaseUrl) return url
+      return forcedBaseUrl
+    }
   },
   providers: [Google],
 });
