@@ -5,6 +5,7 @@ import { prisma } from "./db";
 
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  trustHost: true,
   adapter: PrismaAdapter(prisma),
   callbacks: {
     session({ session, user }) {
