@@ -43,7 +43,7 @@ function Navbar({ className }: { className?: string }) {
             <ProfileMenu />
           </div>
           : 
-          <Button variant={"outline"} size={"sm"} onClick={() => signIn()} className="mr-2 py-[-10px]">Sign In</Button>
+          <Button variant={"outline"} size={"sm"} onClick={async() => await signIn("google")} className="mr-2 py-[-10px]">Sign In</Button>
         }
         </div>
       </Menu>
