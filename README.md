@@ -7,7 +7,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/debsouryadatta/CourseX">
-    <img src="https://res.cloudinary.com/diyxwdtjd/image/upload/v1721889560/projects/CX_logo_u2eyid.png" alt="Logo" width="150" height="100">
+    <img src="https://res.cloudinary.com/diyxwdtjd/image/upload/v1721889560/projects/CX_logo_u2eyid.png" alt="Logo" width="250" height="150">
   </a>
 
   <h3 align="center">CourseX</h3>
@@ -16,7 +16,7 @@
     CourseX - Unveil The Power of AI in Education. Generate courses with A.I.
     <br />
     <br />
-    <a href="https://github.com/debsouryadatta/CourseX">View Demo</a>
+    <a href="https://coursex-bswq.onrender.com/">View Demo</a>
     ·
     <a href="https://github.com/debsouryadatta/CourseX/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
     ·
@@ -63,7 +63,7 @@ Course Generator is an innovative web application built with Next.js, leveraging
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### CourseX Demo
-Check out the live demo of CourseX [here](https://coursex.vercel.app/).
+Check out the live demo of CourseX [here](https://coursex-bswq.onrender.com/).
 
 
 ### Key Features

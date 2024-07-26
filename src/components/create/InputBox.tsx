@@ -32,6 +32,9 @@ export function InputBox({session}: {session: any}) {
     try {
       const course = await generateCourse(chapters, courseTitle, session?.data?.user?.id);
       console.log("Generated Course", course);
+      if(course.chapters.length === 0) {
+        throw Error;
+      }
       setGenerating(false);
       toast("Course has been generated successfully.");
       router.push(`/gallery`);
