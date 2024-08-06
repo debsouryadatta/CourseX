@@ -21,3 +21,11 @@
 12. Function Timeout only - 10Sec in free tier of Vercel, so had to switch to Render.com
 13. Render.com next auth error -> Fixed by adding `trustHost: true` in the nextauth config and also adding forcedBaseUrl in the redirect of the nextauth config
 
+### Planning
+- The above was about v0.1
+- From now there will be 2 branches, main and dev
+- Main will be the stable version, dev will be the development version(After major changes, we will be merging the dev into main)
+
+### Issues
+- #1 - [[FEAT]: Build a modern landing page using aceternity components](https://github.com/debsouryadatta/CourseX/issues/1)
+- 
