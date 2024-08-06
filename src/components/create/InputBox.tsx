@@ -10,7 +10,7 @@ import {
 } from "@tabler/icons-react";
 import { Loader2, Plus, Trash } from "lucide-react";
 import { toast } from "sonner";
-import { generateCourse } from "@/app/create/actions";
+import { generateCourse } from "@/app/(inner_routes)/create/actions";
 import { useRouter } from "next/navigation";
 
 export function InputBox({session}: {session: any}) {

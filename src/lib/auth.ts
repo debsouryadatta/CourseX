@@ -13,12 +13,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       session.user.id = user.id;
       return session;
     },
-    async redirect({ url, baseUrl }) {
-      const forcedBaseUrl = RENDER_EXTERNAL_URL
-      if (url.startsWith("/")) return `${forcedBaseUrl}${url}`
-      else if (new URL(url).origin === forcedBaseUrl) return url
-      return forcedBaseUrl
-    }
+    // async redirect({ url, baseUrl }) {
+    //   const forcedBaseUrl = RENDER_EXTERNAL_URL
+    //   if (url.startsWith("/")) return `${forcedBaseUrl}${url}`
+    //   else if (new URL(url).origin === forcedBaseUrl) return url
+    //   return forcedBaseUrl
+    // }
   },
   providers: [Google],
 });

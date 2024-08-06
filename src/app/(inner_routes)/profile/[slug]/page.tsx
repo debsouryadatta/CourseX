@@ -2,11 +2,16 @@ import ProfileHeader from "@/components/profile/ProfileHeader";
 import { HoverEffect } from "@/components/ui/card-hover-effect";
 import { getUserCourses } from "./actions";
 import { auth } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
 export default async function page() {
     const session = await auth()
     const courses = await getUserCourses(session?.user?.id!);
     console.log("courses: ", courses);
+
+    if(!session?.user?.id) {
+      redirect("/gallery");
+    }
     
   return (
     <div>

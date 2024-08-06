@@ -8,7 +8,7 @@ import {
   getLikesCountAction,
   removeFromBookmarkAction,
   removeLikeAction,
-} from "@/app/course/[...slug]/actions";
+} from "@/app/(inner_routes)/course/[...slug]/actions";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Bookmark, FileDown, Share2, ThumbsUp } from "lucide-react";
 import { useEffect, useState } from "react";

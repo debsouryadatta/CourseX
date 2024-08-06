@@ -9,7 +9,7 @@ import {
   addCommentAction,
   deleteCommentAction,
   getCommentsAction,
-} from "@/app/course/[...slug]/actions";
+} from "@/app/(inner_routes)/course/[...slug]/actions";
 import { toast } from "sonner";
 import { useSession } from "next-auth/react";
 import { EllipsisVertical } from "lucide-react";
