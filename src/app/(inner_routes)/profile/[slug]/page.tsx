@@ -1,21 +1,35 @@
+"use client";
+
 import ProfileHeader from "@/components/profile/ProfileHeader";
 import { HoverEffect } from "@/components/ui/card-hover-effect";
 import { getUserCourses } from "./actions";
-import { auth } from "@/lib/auth";
-import { redirect } from "next/navigation";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import { useEffect, useState } from "react";
 
-export default async function page() {
-    const session = await auth()
-    const courses = await getUserCourses(session?.user?.id!);
-    console.log("courses: ", courses);
+export default async function page({slug}: {slug: string}) {
+  const [courses, setCourses] = useState([]);
+  const session = useSession();
+  const router = useRouter();
+  
+  if (!session?.data?.user) {
+    toast("You need to be logged in to see Profile.");
+    return router.push('/gallery');
+  }
 
-    if(!session?.user?.id) {
-      redirect("/gallery");
+  useEffect(() => {
+    const fetchCourses = async () => {
+      const result: any = await getUserCourses(slug);
+      setCourses(result);
     }
+    fetchCourses();
+  }, [])
+  
     
   return (
     <div>
-        <ProfileHeader user={session?.user} />
+        <ProfileHeader user={session?.data?.user} />
         <h2 className="text-center mt-10 mb-[-30px] text-2xl font-bold">Courses Created</h2>
         {courses ?
         <div className="mx-auto max-w-[70vw]">

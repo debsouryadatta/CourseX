@@ -8,6 +8,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { signIn, useSession } from "next-auth/react";
 import { Button } from "../ui/button";
 import { ProfileMenu } from "./ProfileMenu";
+import { useTheme } from "next-themes";
 
 export function NavbarComp() {
   return (
@@ -19,7 +20,15 @@ export function NavbarComp() {
 
 function Navbar({ className }: { className?: string }) {
   const session = useSession();
+  const { theme } = useTheme();
+
   const [active, setActive] = useState<string | null>(null);
+
+  const logoSrc =
+  theme === 'dark'
+    ? 'https://res.cloudinary.com/diyxwdtjd/image/upload/v1723026483/projects/CX-removebg-preview_lqpcxg.png'
+    : 'https://res.cloudinary.com/diyxwdtjd/image/upload/v1723026468/projects/2-removebg-preview_wyfijg.png';
+
   return (
     <div
       className={cn("fixed top-10 inset-x-0 max-w-2xl mx-auto z-50", className)}
@@ -27,14 +36,19 @@ function Navbar({ className }: { className?: string }) {
       <Menu setActive={setActive}>
         <div className="flex justify-center items-center">
           <Link href={"/gallery"} className="mr-2 sm:mr-6">
-            Gallery
+          {/* <img
+            src={logoSrc}
+            className="w-[100px] h-[200px] mr-3 sm:h-[100px]"
+            alt="CourseX logo"
+          /> */}
+            CourseX
           </Link>
-          <Link href={"/create"} className="mr-2 sm:mr-6">
+          {/* <Link href={"/create"} className="mr-2 sm:mr-6">
             Create
           </Link>
           <Link href={"/create"} className="mr-2 sm:mr-6">
             Settings
-          </Link>
+          </Link> */}
         </div>
         <div className="flex items-center">
           <div className="mr-2"><ThemeToggle /></div>

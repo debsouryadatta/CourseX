@@ -1,7 +1,7 @@
 export default function ProfileHeader({user} : {user: any}) {
   return (
     <div>
-      <div className="sm:mx-auto md:mx-auto lg:mx-auto xl:mx-auto bg-white dark:bg-slate-950 shadow-xl rounded-lg text-gray-900">
+      <div className="sm:mx-auto md:mx-auto lg:mx-auto xl:mx-auto bg-white dark:bg-zinc-900 shadow-xl rounded-lg text-gray-900">
         <div className="rounded-t-lg h-72 overflow-hidden">
           <img
             className="object-cover object-top w-full"

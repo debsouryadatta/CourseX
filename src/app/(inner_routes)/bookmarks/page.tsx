@@ -1,12 +1,32 @@
-import { auth } from "@/lib/auth"
+"use client";
+
 import { getBookmarkCoursesAction } from "./actions"
 import { HoverEffect } from "@/components/ui/card-hover-effect";
+import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export default async function page() {
-    const session = await auth()
-    const bookmarkCourses = await getBookmarkCoursesAction(session?.user?.id!);
-    const courses = bookmarkCourses.map((item) => item.course);
-    console.log("courses: ", courses);
+  const [courses, setCourses] = useState([]);
+  const session = useSession();
+  const router = useRouter();
+  
+  if (!session?.data?.user) {
+    toast("You need to be logged in to see Profile.");
+    return router.push('/gallery');
+  }
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      const bookmarkCourses = await getBookmarkCoursesAction(session?.data?.user?.id!);
+      const result: any = bookmarkCourses.map((item) => item.course);
+      setCourses(result);
+    }
+    fetchCourses();
+  }, [])
+
+
   return (
     <div>
         <h2 className="text-center mt-20 mb-[-30px] text-2xl font-bold">Bookmarked Courses</h2>

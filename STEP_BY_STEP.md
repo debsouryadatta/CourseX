@@ -30,5 +30,5 @@
 - Main will be the stable version, dev will be the development version(After major changes, we will be merging the dev into main)
 
 ### Issues
-- #1 - [[FEAT]: Build a modern landing page using aceternity components](https://github.com/debsouryadatta/CourseX/issues/1)
-- 
+- #1 - [[FEAT]: Build a modern landing page using aceternity components](https://github.com/debsouryadatta/CourseX/issues/1) ✅
+- #2 - [[FEAT]: Switch from Top Navigation to Sidebar Navigation](https://github.com/debsouryadatta/CourseX/issues/2)

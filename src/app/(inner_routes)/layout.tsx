@@ -5,6 +5,7 @@ import Providers from "@/components/common/Providers";
 import { NavbarComp } from "@/components/common/Navbar";
 import { Toaster } from "@/components/ui/sonner";
 import Footer from "@/components/common/Footer";
+import { SideBar } from "@/components/common/SideBar";
 
 // const inter = Inter({ subsets: ["latin"] });
 
@@ -20,9 +21,11 @@ export default function DashboardLayout({
 }>) {
   return (
     <div>
-        <NavbarComp />
+      <SideBar>
+        {/* <NavbarComp /> */}
         {children}
         <Footer />
+      </SideBar>
     </div>
   );
 }
