@@ -22,7 +22,7 @@ export default function Footer() {
                   ? 'https://res.cloudinary.com/diyxwdtjd/image/upload/v1723026483/projects/CX-removebg-preview_lqpcxg.png'
                   : 'https://res.cloudinary.com/diyxwdtjd/image/upload/v1723026468/projects/2-removebg-preview_wyfijg.png'
               }
-              className="w-[100px] h-[200px] mr-3 sm:h-[100px]"
+              className="w-[100px] h-[100px] mr-3"
               alt="CourseX logo"
             />
           )}

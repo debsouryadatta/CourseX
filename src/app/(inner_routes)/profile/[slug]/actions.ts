@@ -19,3 +19,17 @@ export async function getUserCourses(userId: string){
         throw error;
     }
 }
+
+export async function getUserProfileAction(userId: string){
+    try {
+        const user = await prisma.user.findUnique({
+            where: {
+                id: userId
+            }
+        })
+        return user;
+    } catch (error) {
+        console.log("Error", error);
+        throw error;
+    }
+}

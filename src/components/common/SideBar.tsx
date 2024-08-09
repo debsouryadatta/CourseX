@@ -7,6 +7,7 @@ import {
   IconBrandGoogleFilled,
   IconBrandTabler,
   IconLayoutGrid,
+  IconSearch,
   IconSettings,
   IconSquareRoundedPlus,
   IconUserBolt,
@@ -28,6 +29,13 @@ export function SideBar({children}: Readonly<{children: React.ReactNode;}>) {
       href: "/gallery",
       icon: (
         <IconLayoutGrid className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      ),
+    },
+    {
+      label: "Search",
+      href: "/search",
+      icon: (
+        <IconSearch className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
     {
@@ -76,6 +84,13 @@ export function SideBar({children}: Readonly<{children: React.ReactNode;}>) {
       ),
     },
     {
+      label: "Search",
+      href: "/search",
+      icon: (
+        <IconSearch className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      ),
+    },
+    {
       label: "Create",
       href: "/create",
       icon: (
@@ -114,7 +129,7 @@ export function SideBar({children}: Readonly<{children: React.ReactNode;}>) {
             {open ? <Logo /> : <LogoIcon />}
             <div className="mt-8 flex flex-col gap-2">
               {links.map((link, idx) => (
-                <SidebarLink key={idx} link={link} setOpen={setOpen} className="hover:bg-neutral-900 rounded-lg px-1" />
+                <SidebarLink key={idx} link={link} setOpen={setOpen} className="hover:bg-gray-300 dark:hover:bg-neutral-900 rounded-lg px-1" />
               ))}
             </div>
           </div>
@@ -123,7 +138,7 @@ export function SideBar({children}: Readonly<{children: React.ReactNode;}>) {
             <ThemeToggle />
             {open && (
               <motion.div 
-                className="ml-1"
+                className="ml-1 text-[15px] text-neutral-700 dark:text-neutral-200"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5 }} // Adjust the duration as needed

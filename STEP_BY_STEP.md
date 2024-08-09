@@ -22,7 +22,12 @@
 14. Render.com next auth error -> Fixed by adding `trustHost: true` in the nextauth config and also adding forcedBaseUrl in the redirect of the nextauth config
 
 15. Creating the Landing page of the website using aceternity components - Spotlight, cards section, Magic-button, flip-words, etc
-16. 
+16. Switching from Top Navigation to Sidebar Navigation using aceternity ui kit
+17. Adding a Carousel of featured courses on the gallery page
+18. Adding a search page for the search functionality on courses and profiles
+19. pnpm i lodash for debounce throttling the search input
+
+20. 
 
 ### Planning
 - The above was about v0.1
@@ -31,4 +36,5 @@
 
 ### Issues
 - #1 - [[FEAT]: Build a modern landing page using aceternity components](https://github.com/debsouryadatta/CourseX/issues/1) ✅
-- #2 - [[FEAT]: Switch from Top Navigation to Sidebar Navigation](https://github.com/debsouryadatta/CourseX/issues/2)
+- #2 - [[FEAT]: Switch from Top Navigation to Sidebar Navigation](https://github.com/debsouryadatta/CourseX/issues/2) ✅
+- #3 - [[FEAT]: Add a Carousel of featured courses on the gallery and add the search page functionality as well](https://github.com/debsouryadatta/CourseX/issues/3)

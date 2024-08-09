@@ -2,14 +2,21 @@
 
 import ProfileHeader from "@/components/profile/ProfileHeader";
 import { HoverEffect } from "@/components/ui/card-hover-effect";
-import { getUserCourses } from "./actions";
+import { getUserCourses, getUserProfileAction } from "./actions";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
 
-export default async function page({slug}: {slug: string}) {
+type Props = {
+  params: {
+    slug: string;
+  };
+};
+
+export default async function page({params: {slug}}: Props) {
   const [courses, setCourses] = useState([]);
+  const [profile, setProfile] = useState(null);
   const session = useSession();
   const router = useRouter();
   
@@ -20,16 +27,18 @@ export default async function page({slug}: {slug: string}) {
 
   useEffect(() => {
     const fetchCourses = async () => {
-      const result: any = await getUserCourses(slug);
-      setCourses(result);
+      const courses: any = await getUserCourses(slug);
+      const profile: any = await getUserProfileAction(slug);
+      setCourses(courses);
+      setProfile(profile);
     }
     fetchCourses();
   }, [])
   
     
   return (
-    <div>
-        <ProfileHeader user={session?.data?.user} />
+    <div className="min-h-[75vh]">
+        <ProfileHeader user={profile} />
         <h2 className="text-center mt-10 mb-[-30px] text-2xl font-bold">Courses Created</h2>
         {courses ?
         <div className="mx-auto max-w-[70vw]">

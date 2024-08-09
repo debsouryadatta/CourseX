@@ -1,4 +1,5 @@
 import { Gallery } from "@/components/gallery/Gallery";
+import { CarouselComp } from "@/components/gallery/CarouselComp";
 import { prisma } from "@/lib/db";
 
 async function getCourses(){
@@ -20,7 +21,8 @@ export default async function page() {
   console.log("Courses: ", courses);
   
   return (
-    <div className="mt-20 min-h-[80vh]">
+    <div className="mt-20 min-h-[75vh]">
+      <CarouselComp />
       {courses?.length === 0 && <h1 className="mt-52 text-center text-2xl font-bold">No Courses Available!</h1>}
       <Gallery courses={courses} />
     </div>

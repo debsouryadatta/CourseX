@@ -28,7 +28,7 @@ export default async function page() {
 
 
   return (
-    <div>
+    <div className="min-h-[75vh]">
         <h2 className="text-center mt-20 mb-[-30px] text-2xl font-bold">Bookmarked Courses</h2>
         {courses && courses.length>0 ?
         <div className="mx-auto max-w-[70vw]">
