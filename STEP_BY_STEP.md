@@ -27,7 +27,9 @@
 18. Adding a search page for the search functionality on courses and profiles
 19. pnpm i lodash for debounce throttling the search input
 
-20. 
+20. Changing schema with addition of Follow table, adding follow, unfollow button in the profile page
+21. Showing the list of followers and following in the profile page(`pnpm i zustand`, for state management)
+22. Implementing on cascade delete functionalities in every tables
 
 ### Planning
 - The above was about v0.1
@@ -38,3 +40,29 @@
 - #1 - [[FEAT]: Build a modern landing page using aceternity components](https://github.com/debsouryadatta/CourseX/issues/1) ✅
 - #2 - [[FEAT]: Switch from Top Navigation to Sidebar Navigation](https://github.com/debsouryadatta/CourseX/issues/2) ✅
 - #3 - [[FEAT]: Add a Carousel of featured courses on the gallery and add the search page functionality as well](https://github.com/debsouryadatta/CourseX/issues/3)
+- #4 - [[FEAT]: Profile page functionalities -> see followers, following, total courses. Follow feature addition, Edit Profile option](https://github.com/debsouryadatta/CourseX/issues/4)
+
+
+
+
+
+
+### Features Planning
+- Enhancing Course generation feature
+    - The summary should have more words
+    - The subtopics should not be 3, it should be 10 with much more words
+    - The youtube search query should be updated -> eg - "What is {topic} in English"
+    - Top 15 important questions on the chapter should be added below
+    - Separate mcq page for the chapter of a specific course(25 mcqs)
+    - The course will be public or invite only
+    - Adding the banner image for the course by the user separately
+
+- Weekly quizzes 
+    - Quizzes will be generated automatically using AI when the previous quiz ends, users can join the quiz till the next week until it starts
+    - Conducting the quiz and calculate results on centralized server, Recording the final results and distribute rewards/tokens on the blockchain
+    - Allow all users to take quizzes without connecting a wallet, Prompt users to connect a wallet before or after the quiz to claim token rewards, Store potential rewards for a limited time, allowing users to claim them later by connecting a wallet
+    - All the above stuff will be in auto pilot mode, no manual intervention required
+  
+- Premium Generations Payments(Free tier -> Monthly 10 genertaions, Premium -> 300 generations)
+    - Centralized Stripe Payments, Cryptocurrency Payments, Your Own Token Payments
+

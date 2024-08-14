@@ -20,6 +20,11 @@ export default async function page({ params: { slug } }: Props) {
   const courseDetails = await getCourseDetails(courseId);
   console.log("Course Details: ", courseDetails);
 
+  if(!courseDetails || courseDetails.length == 0) {
+    return <div className="h-[60vh] w-[93vw] flex justify-center items-center text-3xl">Course not found!</div>
+
+  }
+
 
   return (
     <div className="mt-20 flex flex-col justify-center items-center">

@@ -17,6 +17,7 @@ model User {
   email         String          @unique
   emailVerified DateTime?
   image         String?
+  bio           String?         @default("Update bio")
   accounts      Account[]
   sessions      Session[]
   // Optional for WebAuthn support
@@ -28,6 +29,8 @@ model User {
   likes     Like[]
   comments  Comment[]
   bookmarks Bookmark[]
+  followers Follow[]   @relation("UserFollowers")
+  following Follow[]   @relation("UserFollowing")
 }
  
 model Account {
@@ -96,7 +99,7 @@ model Course {
   likes           Like[]
   comments        Comment[]
   bookmarks       Bookmark[]
-  user            User @relation(fields: [userId], references: [id])
+  user            User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId], name: "userId")
 }
@@ -113,9 +116,10 @@ model Chapter {
   youtubeSearchQuery    String
   videoId               String?
   summary               String?    @db.VarChar(3000)
-  course                Course     @relation(fields: [courseId], references: [id])
+  course                Course     @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
   @@index([courseId], name: "courseId")
+  
 }
 
 
@@ -124,8 +128,8 @@ model Like {
   userId  String
   courseId String
 
-  user    User   @relation(fields: [userId], references: [id])
-  course  Course @relation(fields: [courseId], references: [id])
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course  Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
   @@index([userId], name: "userId2")
   @@index([courseId], name: "courseId2")
@@ -136,8 +140,8 @@ model Comment {
   userId  String
   courseId String
   text    String
-  user    User   @relation(fields: [userId], references: [id])
-  course  Course @relation(fields: [courseId], references: [id])
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course  Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
   @@index([userId], name: "userId3")
   @@index([courseId], name: "courseId3")
@@ -147,11 +151,24 @@ model Bookmark {
   id        String   @id @default(cuid())
   userId    String
   courseId  String
-  user      User     @relation(fields: [userId], references: [id])
-  course    Course   @relation(fields: [courseId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
 
   @@unique([userId, courseId], name: "user_course_unique")
   @@index([userId], name: "userId4")
   @@index([courseId], name: "courseId4")
+}
+
+// Follower -> The one who follows
+// Following -> The one who is followed
+// Eg: I followed my friend, then I am the follower and my friend is the following
+model Follow {
+  id              String     @id @default(cuid())
+  followerId      String
+  followingId     String
+  follower        User       @relation("UserFollowers", fields: [followerId], references: [id], onDelete: Cascade)
+  following       User       @relation("UserFollowing", fields: [followingId], references: [id], onDelete: Cascade)
+
+  @@unique([followerId, followingId])
 }

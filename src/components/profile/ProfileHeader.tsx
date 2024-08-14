@@ -1,4 +1,62 @@
-export default function ProfileHeader({user} : {user: any}) {
+"use client";
+
+import { toast } from "sonner";
+import ProfileListDialog from "./ProfileListDialog";
+import {
+  followUserAction,
+  unfollowUserAction,
+} from "@/app/(inner_routes)/profile/[slug]/actions";
+import { useSession } from "next-auth/react";
+import React from "react";
+import EditDialog from "./EditDialog";
+import EditDrawer from "./EditDrawer";
+import { User } from "@/types";
+
+export default function ProfileHeader({
+  user,
+  role,
+  isUserAlreadyFollowed,
+  setIsUserAlreadyFollowed,
+}: {
+  user: User | null;
+  role: string;
+  isUserAlreadyFollowed: boolean;
+  setIsUserAlreadyFollowed: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
+  const session = useSession();
+
+  const followUser = async () => {
+    try {
+      const result = await followUserAction(
+        session?.data?.user?.id!,
+        user?.id!
+      );
+      if (result) {
+        setIsUserAlreadyFollowed(true);
+        toast("User followed successfully");
+      }
+    } catch (error) {
+      console.log("Error", error);
+      toast("Error following user");
+    }
+  };
+
+  const unfollowUser = async () => {
+    try {
+      const result = await unfollowUserAction(
+        session?.data?.user?.id!,
+        user?.id!
+      );
+      if (result) {
+        setIsUserAlreadyFollowed(false);
+        toast("User unfollowed successfully");
+      }
+    } catch (error) {
+      console.log("Error", error);
+      toast("Error unfollowing user");
+    }
+  };
+
   return (
     <div>
       <div className="sm:mx-auto md:mx-auto lg:mx-auto xl:mx-auto bg-white dark:bg-zinc-900 shadow-xl rounded-lg text-gray-900">
@@ -12,49 +70,45 @@ export default function ProfileHeader({user} : {user: any}) {
         <div className="mx-auto w-32 h-32 relative -mt-16 border-4 border-white rounded-full overflow-hidden">
           <img
             className="object-cover object-center h-32"
-            src={user?.image}
+            src={user?.image || ""}
           />
         </div>
         <div className="text-center mt-2">
           <h2 className="font-semibold dark:text-gray-300">{user?.name}</h2>
-          <p className="text-gray-500">Freelance Web Designer</p>
+          <p className="text-gray-500 w-[90vw] sm:w-[80vw] md:w-[50vw] mx-auto text-center">
+            {user?.bio}
+          </p>
         </div>
-        <ul className="py-4 mt-2 text-gray-700 flex items-center justify-around max-w-sm mx-auto">
+        <ul className="py-4 mt-2 text-gray-700 dark:text-gray-300 text-sm flex items-center justify-around max-w-sm mx-auto">
           <li className="flex flex-col items-center justify-around">
-            <svg
-              className="w-4 fill-current text-blue-900"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-            >
-              <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
-            </svg>
-            <div>2k</div>
+            20
+            <div>Courses</div>
           </li>
           <li className="flex flex-col items-center justify-between">
-            <svg
-              className="w-4 fill-current text-blue-900"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-            >
-              <path d="M7 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0 1c2.15 0 4.2.4 6.1 1.09L12 16h-1.25L10 20H4l-.75-4H2L.9 10.09A17.93 17.93 0 0 1 7 9zm8.31.17c1.32.18 2.59.48 3.8.92L18 16h-1.25L16 20h-3.96l.37-2h1.25l1.65-8.83zM13 0a4 4 0 1 1-1.33 7.76 5.96 5.96 0 0 0 0-7.52C12.1.1 12.53 0 13 0z" />
-            </svg>
-            <div>10k</div>
+            <ProfileListDialog type="followersList" />
           </li>
           <li className="flex flex-col items-center justify-around">
-            <svg
-              className="w-4 fill-current text-blue-900"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-            >
-              <path d="M9 12H1v6a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-6h-8v2H9v-2zm0-1H0V5c0-1.1.9-2 2-2h4V2a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v1h4a2 2 0 0 1 2 2v6h-9V9H9v2zm3-8V2H8v1h4z" />
-            </svg>
-            <div>15</div>
+            <ProfileListDialog type="followingList" />
           </li>
         </ul>
-        <div className="p-4 border-t mx-8 mt-2">
-          <button className="w-1/2 block mx-auto rounded-full bg-gray-900 hover:shadow-lg font-semibold text-white px-6 py-2">
-            Follow
-          </button>
+        <div className="p-4 border-t mx-8 mt-2 flex justify-center">
+          {role === "owner" ? (
+            <EditDrawer />
+          ) : isUserAlreadyFollowed ? (
+            <button
+              onClick={unfollowUser}
+              className="w-1/2 block mx-auto rounded-full bg-gray-900 dark:bg-gray-300 hover:shadow-2xl dark:hover:shadow-gray-300/30 font-semibold text-white dark:text-gray-900 px-6 py-2"
+            >
+              Unfollow
+            </button>
+          ) : (
+            <button
+              onClick={followUser}
+              className="w-1/2 block mx-auto rounded-full bg-gray-900 dark:bg-gray-300 hover:shadow-2xl dark:hover:shadow-gray-300/30 font-semibold text-white dark:text-gray-900 px-6 py-2"
+            >
+              Follow
+            </button>
+          )}
         </div>
       </div>
     </div>

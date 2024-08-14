@@ -36,12 +36,12 @@ export function InputBox({session}: {session: any}) {
         throw Error;
       }
       setGenerating(false);
-      toast("Course has been generated successfully.");
+      toast.success("Course has been generated successfully.");
       router.push(`/gallery`);
     } catch (error) {
       console.log("Error", error);
       setGenerating(false);
-      toast("An error occured generating the course. Please try again.");
+      toast.error("An error occured generating the course. Please try again.");
     }
   };
 

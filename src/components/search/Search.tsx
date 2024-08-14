@@ -5,38 +5,13 @@ import { PlaceholdersAndVanishInput } from "../ui/placeholders-and-vanish-input"
 import SearchTabs from "./SearchTabs";
 import { debounce, set } from "lodash";
 import { searchCoursesAction, searchProfilesAction } from "@/app/(inner_routes)/search/actions";
+import { CourseWithUser, User } from "@/types";
 
-export interface CourseWithUser {
-  id: string;
-  title: string;
-  image: string;
-  description: string;
-  userId: string;
-  user: {
-    id: string;
-    name: string | null;
-    email: string;
-    emailVerified: Date | null;
-    image: string | null;
-    createdAt: Date;
-    updatedAt: Date;
-  };
-}
-
-export interface Profile {
-  id: string;
-  name: string | null;
-  email: string;
-  emailVerified: Date | null;
-  image: string | null;
-  createdAt: Date;
-  updatedAt: Date;
-}
 
 export function Search() {
   const [searchInput, setSearchInput] = useState("");
   const [courses, setCourses] = useState<CourseWithUser[]>([]);
-  const [profiles, setProfiles] = useState<Profile[]>([]);
+  const [profiles, setProfiles] = useState<User[]>([]);
 
   const placeholders = [
     "Artificial Intelligence",
@@ -51,7 +26,7 @@ export function Search() {
       console.log(e.target.value);
       try {
         const courses: CourseWithUser[] = await searchCoursesAction(e.target.value);
-        const profiles: Profile[]  = await searchProfilesAction(e.target.value);
+        const profiles: User[]  = await searchProfilesAction(e.target.value);
         console.log("Courses", courses);
         console.log("Profiles", profiles);
         setCourses(courses);
