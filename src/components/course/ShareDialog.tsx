@@ -18,12 +18,14 @@ import { Label } from "@/components/ui/label"
 import { useEffect, useState } from "react"
 import { toast } from "sonner"
 
-export function ShareDialog() {
+export function ShareDialog({course}: {course: any}) {
     const [pageUrl, setPageUrl] = useState("");
 
+
     useEffect(() => {
+        let inviteCode = course?.visibility == "invite-only" ? `?inviteCode=${course.inviteCode}` : "";
         setPageUrl(
-            window.location.protocol + "//" + window.location.host + window.location.pathname
+            window.location.protocol + "//" + window.location.host + window.location.pathname + inviteCode
         )
     }, [])
     

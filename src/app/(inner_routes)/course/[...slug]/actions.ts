@@ -178,3 +178,40 @@ export const getCommentsAction = async (courseId: string) => {
     throw error;
   }
 }
+
+export const checkCourseAccessAction = async (courseId: string, inviteCode: string, userId: string) => {
+  try {
+    const course = await prisma.course.findUnique({
+      where: {
+        id: courseId
+      }
+    })
+    if(course?.visibility === 'public') {
+      return {access: true};
+    } else if(course?.inviteCode === inviteCode || course?.userId === userId) {
+      return {access: true};
+    } else {
+      return {access: false, reason: "Invalid invite code or Access denied"};
+    }
+  } catch (error) {
+    console.log("Error", error);
+    throw error;
+  }
+}
+
+export const changeVisibilityAction = async (courseId: string, userId: string, visibility: string) => {
+  try {
+    const res = await prisma.course.update({
+      where: {
+        id: courseId,
+        userId: userId
+      },
+      data: {
+        visibility: visibility
+      }
+    })
+  } catch (error) {
+    console.log("Error", error);
+    throw error;
+  }
+}

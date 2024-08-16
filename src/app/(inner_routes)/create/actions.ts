@@ -1,7 +1,9 @@
 "use server";
 
+import { getPhotoUrl } from "@/lib/cloudinary";
 import { prisma } from "@/lib/db";
 import { generateChapter, generateCourseDescription, generateCourseImage } from "@/lib/generate";
+import { nanoid } from 'nanoid';
 
 export async function generateChapters(chapters: { id: number, title: string }[]){
     let genChapters = [];
@@ -20,11 +22,14 @@ export async function generateChapters(chapters: { id: number, title: string }[]
 
 
 
-export async function generateCourse(chapters: { id: number, title: string }[], courseTitle: string, userId: string){
+export async function generateCourse(chapters: { id: number, title: string }[], courseTitle: string, userId: string, imageUrl: string, visibility: string){
     try {
         let generatedChapters = await generateChapters(chapters)
-        let imageUrl = await generateCourseImage(courseTitle);
         let description = await generateCourseDescription(courseTitle);
+        if(imageUrl === ""){
+            imageUrl = await generateCourseImage(courseTitle);
+        }
+        let inviteCode = visibility === 'invite-only' ? nanoid(10) : null;
 
         
         const response = await prisma.course.create({
@@ -32,7 +37,9 @@ export async function generateCourse(chapters: { id: number, title: string }[], 
                 title: courseTitle,
                 image: imageUrl,
                 description: description,
-                userId: userId
+                userId: userId,
+                visibility: visibility,
+                inviteCode: inviteCode
             }
         })
         const response2 = []
@@ -60,3 +67,18 @@ export async function generateCourse(chapters: { id: number, title: string }[], 
         throw error;
     }
 }
+
+
+export async function getPhotoUrlAction(formData: FormData) {
+    try {
+      // Convert the file to a buffer
+      const file = formData.get("file") as File;
+      const bytes = await file.arrayBuffer();
+      const buffer = Buffer.from(bytes);
+      const photoUrl = await getPhotoUrl(buffer);
+      console.log("Photo URL: ", photoUrl);
+      return photoUrl;
+    } catch (error) {
+      throw error;
+    }
+  }

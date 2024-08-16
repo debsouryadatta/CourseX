@@ -90,12 +90,14 @@ model Authenticator {
 
 
 model Course {
-  id              String @id @default(cuid())
+  id              String        @id @default(cuid())
   title           String
   image           String
   description     String
   units           Chapter[]
   userId          String
+  visibility      String        @default("public")
+  inviteCode      String?       @unique
   likes           Like[]
   comments        Comment[]
   bookmarks       Bookmark[]

@@ -12,7 +12,7 @@ dotenv.config();
 const model = new ChatGroq({
   apiKey: process.env.NEXT_PUBLIC_GROQ_API_KEY,
   //   modelName: "mixtral-8x7b-32768",
-  modelName: "llama3-8b-8192",
+  modelName: "llama-3.1-8b-instant",
 });
 
 const prompt1 = ChatPromptTemplate.fromTemplate(`
@@ -29,7 +29,7 @@ const prompt3 = ChatPromptTemplate.fromTemplate(`
     `);
 
 const prompt4 = ChatPromptTemplate.fromTemplate(`
-    You are an AI capable of summarising a youtube transcript, summarise in 250 words or less and do not talk of the sponsors or anything unrelated to the main topic, also do not introduce what the summary is about. Here is the transcript: {transcript}.
+    You are an AI capable of summarising a youtube transcript, summarise in 250 words or less and do not talk of the sponsors or anything unrelated to the main topic, also do not introduce what the summary is about. Here is the transcript: {transcript}. In the result, directly start with the summary, please do not include any other reference or any information.
     Formatting Instructions: {format_instructions}
     `);
 

@@ -5,6 +5,9 @@ import { prisma } from "@/lib/db";
 async function getCourses(){
   try {
     const res = await prisma.course.findMany({
+      where: {
+        visibility: "public"
+      },
       include: {
         user: true,
       }

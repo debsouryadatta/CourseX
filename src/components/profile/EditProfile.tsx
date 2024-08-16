@@ -67,7 +67,7 @@ export default function EditProfile() {
       <h2 className="text-center text-lg mb-2">
         Update Profile Picture
       </h2>
-      <div className="w-full max-w-md mx-auto border border-dashed bg-gray-300 dark:bg-zinc-950 border-neutral-200 dark:border-neutral-800 rounded-lg">
+      <div className="w-full mx-auto border border-dashed bg-gray-300 dark:bg-zinc-950 border-neutral-200 dark:border-neutral-800 rounded-lg">
         <FileUpload onChange={handleFileUpload} />
       </div>
       <h2 className="text-center text-lg mt-8 mb-2">Update Name</h2>

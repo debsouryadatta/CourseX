@@ -93,7 +93,7 @@ export default function CommentSec({
               onFocus={onFocusFunc}
               onSubmit={() => console.log("Hello")}
               placeholder="Add a comment..."
-              className="focus:outline-1 border-0 border-b-2"
+              className="focus:outline-1 border-0 border-b-2 dark:bg-zinc-950"
             />
           </form>
         </div>

@@ -17,6 +17,7 @@ import { useSession } from "next-auth/react";
 import { toast } from "sonner";
 import { ShareDialog } from "./ShareDialog";
 import Link from "next/link";
+import SelectVisibility from "./SelectVisibility";
 
 export default function CourseDetail({ course }: { course: any }) {
   const [author, setAuthor] = useState<any>(null);
@@ -127,35 +128,38 @@ export default function CourseDetail({ course }: { course: any }) {
             <AvatarComp user={author} />
             <span className="ml-2 text-lg font-bold">{author?.name}</span>
           </div>
-          <div className="flex justify-between w-[100px] sm:w-[200px]">
+          <div className="flex justify-between w-[100px] sm:w-[400px]">
+            <div className="">
+              <SelectVisibility course={course} />
+            </div>
             {like ? (
-              <button onClick={removeLike} className="mr-2 bg-slate-200 dark:bg-slate-900 rounded-2xl p-2">
+              <button onClick={removeLike} className="mr-2 bg-slate-200 dark:bg-zinc-900 rounded-2xl p-2">
                 <div className="flex">
                   <ThumbsUp fill="#fff" />
                   <span className="text-xl mt-[1.5px] ml-1 font-medium">{likesCount}</span>
                 </div>
               </button>
             ) : (
-              <button onClick={addLike} className="mr-2 bg-slate-200 dark:bg-slate-900 rounded-2xl p-2">
+              <button onClick={addLike} className="mr-2 bg-slate-200 dark:bg-zinc-900 rounded-2xl p-2">
                 <div className="flex">
                   <ThumbsUp />
                   <span className="text-xl mt-[1.5px] ml-1 font-medium">{likesCount}</span>
                 </div>
               </button>
             )}
-            <button className="mr-2 bg-slate-200 dark:bg-slate-900 rounded-2xl p-2">
-              <ShareDialog />
+            <button className="mr-2 bg-slate-200 dark:bg-zinc-900 rounded-2xl p-2">
+              <ShareDialog course={course} />
             </button>
             {bookmark ? (
-              <button onClick={removeFromBookmark} className="mr-2 bg-slate-200 dark:bg-slate-900 rounded-2xl p-2">
+              <button onClick={removeFromBookmark} className="mr-2 bg-slate-200 dark:bg-zinc-900 rounded-2xl p-2">
                 <Bookmark fill="#fff" />
               </button>
             ) : (
-              <button onClick={addToBookmark} className="mr-2 bg-slate-200 dark:bg-slate-900 rounded-2xl p-2">
+              <button onClick={addToBookmark} className="mr-2 bg-slate-200 dark:bg-zinc-900 rounded-2xl p-2">
                 <Bookmark />
               </button>
             )}
-            <Link href={`/export/${course?.id}`} className="bg-slate-200 dark:bg-slate-900 rounded-2xl p-2 cursor-pointer">
+            <Link href={`/export/${course?.id}`} className="bg-slate-200 dark:bg-zinc-900 rounded-2xl p-2 cursor-pointer">
               <FileDown />
             </Link>
           </div>
