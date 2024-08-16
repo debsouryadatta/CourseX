@@ -2,7 +2,7 @@
 
 import { getPhotoUrl } from "@/lib/cloudinary";
 import { prisma } from "@/lib/db";
-import { generateChapter, generateCourseDescription, generateCourseImage } from "@/lib/generate";
+import { generateChapter, generateCourseDescription, generateCourseImage, generateMultipleChoiceQuestions } from "@/lib/generate";
 import { nanoid } from 'nanoid';
 
 export async function generateChapters(chapters: { id: number, title: string }[]){
@@ -24,11 +24,14 @@ export async function generateChapters(chapters: { id: number, title: string }[]
 
 export async function generateCourse(chapters: { id: number, title: string }[], courseTitle: string, userId: string, imageUrl: string, visibility: string){
     try {
-        let generatedChapters = await generateChapters(chapters)
+        let generatedChapters = await generateChapters(chapters);
         let description = await generateCourseDescription(courseTitle);
         if(imageUrl === ""){
             imageUrl = await generateCourseImage(courseTitle);
         }
+        let mcqs = await generateMultipleChoiceQuestions(generatedChapters);
+        console.log("Generated mcqs: ---------------------------------------------------------", mcqs);
+        
         let inviteCode = visibility === 'invite-only' ? nanoid(10) : null;
 
         
@@ -39,7 +42,8 @@ export async function generateCourse(chapters: { id: number, title: string }[], 
                 description: description,
                 userId: userId,
                 visibility: visibility,
-                inviteCode: inviteCode
+                inviteCode: inviteCode,
+                mcqs: mcqs
             }
         })
         const response2 = []

@@ -98,6 +98,7 @@ model Course {
   userId          String
   visibility      String        @default("public")
   inviteCode      String?       @unique
+  mcqs            Json?    
   likes           Like[]
   comments        Comment[]
   bookmarks       Bookmark[]

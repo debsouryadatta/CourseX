@@ -45,6 +45,12 @@ const prompt6 = ChatPromptTemplate.fromTemplate(`
     Formatting Instructions: {format_instructions}
     `);
 
+const prompt7 = ChatPromptTemplate.fromTemplate(`
+    You are an AI capable of generating multiple choice question(mcq) using the given subtopic content. Please provide a single mcq question with 4 options and the correct answer. The question should be based on the subtopic content - {subtopicExplanation} and should be the most important question from the content given.
+    Please provide the question, an array of answers and the correct answer in the format mentioned in the formatting instructions, please don't include any other starting reference or any other information.
+    Formatting Instructions: {format_instructions}
+  `);
+
 
 async function generateSubtopics(chapter: string) {
   const outoutParser = StructuredOutputParser.fromZodSchema(
@@ -228,4 +234,43 @@ export async function generateCourseDescription(courseTitle: string) {
   });  
 
   return res.description;
+}
+
+
+
+
+
+
+
+// For Multiple Choice Questions
+export async function generateMultipleChoiceQuestions(chapters: any) {
+  const outoutParser7 = StructuredOutputParser.fromZodSchema(
+    z.object({
+      mcq: z.object({
+        questionId: z.number().describe("The ID of the question"),
+        question: z.string().describe("The question of the mcq"),
+        options: z.array(z.string()).describe("An array of options of the mcq"),
+        answer: z.string().describe("Just the answer of the mcq"),
+      }),
+    })
+  );
+
+  let mcqs = [];
+  let questionIdCounter = 1;
+  for(const chapter of chapters){
+    let chapterMcqs = [];
+    for(const subtopicExplanation of chapter.subtopicExplanations){
+      const chain7 = prompt7.pipe(model).pipe(outoutParser7);
+      const res = await chain7.invoke({
+        subtopicExplanation: subtopicExplanation,
+        format_instructions: outoutParser7.getFormatInstructions(),
+      });
+
+      // Add questionId to each mcq
+      res.mcq.questionId = questionIdCounter++;
+      chapterMcqs.push(res.mcq);
+    }
+    mcqs.push(chapterMcqs);
+  }
+  return mcqs;
 }

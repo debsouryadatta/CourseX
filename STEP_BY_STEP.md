@@ -41,7 +41,8 @@
 - #2 - [[FEAT]: Switch from Top Navigation to Sidebar Navigation](https://github.com/debsouryadatta/CourseX/issues/2) ✅
 - #3 - [[FEAT]: Add a Carousel of featured courses on the gallery and add the search page functionality as well](https://github.com/debsouryadatta/CourseX/issues/3) ✅
 - #4 - [[FEAT]: Profile page functionalities -> see followers, following, total courses. Follow feature addition, Edit Profile option](https://github.com/debsouryadatta/CourseX/issues/4) ✅
-- #5 - [[FEAT]: Add course visibility feature, public or invite only and also add uploading course banner feature manually](https://github.com/debsouryadatta/CourseX/issues/5) 
+- #5 - [[FEAT]: Add course visibility feature, public or invite only and also add uploading course banner feature manually](https://github.com/debsouryadatta/CourseX/issues/5) ✅
+- #6 - [[FEAT]: Add a Concept check component which will include few mcqs based on the chapter contents, generate the mcqs using the langchain](https://github.com/debsouryadatta/CourseX/issues/6) ✅
 
 
 
