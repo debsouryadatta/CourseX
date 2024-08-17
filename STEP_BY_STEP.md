@@ -43,6 +43,7 @@
 - #4 - [[FEAT]: Profile page functionalities -> see followers, following, total courses. Follow feature addition, Edit Profile option](https://github.com/debsouryadatta/CourseX/issues/4) ✅
 - #5 - [[FEAT]: Add course visibility feature, public or invite only and also add uploading course banner feature manually](https://github.com/debsouryadatta/CourseX/issues/5) ✅
 - #6 - [[FEAT]: Add a Concept check component which will include few mcqs based on the chapter contents, generate the mcqs using the langchain](https://github.com/debsouryadatta/CourseX/issues/6) ✅
+- #7 - [[FEAT]: Create a payment functionality for premium generations, free tier -> 10 generations, premium -> 300 generations](https://github.com/debsouryadatta/CourseX/issues/7) 
 
 
 
@@ -68,3 +69,11 @@
 - Premium Generations Payments(Free tier -> Monthly 10 genertaions, Premium -> 300 generations)
     - Centralized Stripe Payments, Cryptocurrency Payments, Your Own Token Payments
 
+
+
+### Stripe Implementation:
+- `pnpm i stripe`
+- Create a stripe client inside the lib folder
+- Create /api/stripe/route.ts -> for creating the stripe session & sending the stripe url when the api gets called from the frontend
+- Create /api/webhook/route.ts -> for handling the stripe webhook events and creating the userSubscription row in the database accordingly
+-  Install stripe cli from https://docs.stripe.com/stripe-cli , go to webhooks section on the dashboard and follow the steps

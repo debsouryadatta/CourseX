@@ -17,7 +17,7 @@ export default function page() {
 
   return (
     <div className='mt-28 mb-20 min-h-[75vh]'>
-      <InputBox session={session} />
+      <InputBox />
     </div>
   )
 }

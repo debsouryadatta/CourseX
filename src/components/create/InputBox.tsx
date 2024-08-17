@@ -1,25 +1,54 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { cn } from "@/utils/cn";
 import { InfoIcon, Loader2, Plus, Trash } from "lucide-react";
 import { toast } from "sonner";
-import { generateCourse, getPhotoUrlAction } from "@/app/(inner_routes)/create/actions";
+import { checkSubscriptionAction, generateCourse, getPhotoUrlAction, getUserCreditsAction } from "@/app/(inner_routes)/create/actions";
 import { useRouter } from "next/navigation";
 import { FileUpload } from "../ui/file-upload";
 import { Switch } from "@/components/ui/switch";
+import SubscriptionAction from "./SubscriptionAction";
+import { useSession } from "next-auth/react";
 
-export function InputBox({session}: {session: any}) {
+export function InputBox() {
   const [courseTitle, setCourseTitle] = useState("");
   const [chapters, setChapters] = useState([{ id: 1, title: "" }]);
   const [files, setFiles] = useState<File[]>([]);
   const [generateImage, setGenerateImage] = useState(false);
   const [visibility, setVisibility] = useState("public");
   const [bannerUrl, setBannerUrl] = useState("");
+  const [generating, setGenerating] = useState(false);
+  const [credits, setCredits] = useState(0);
+  const [isPro, setIsPro] = useState(false);
 
   const router = useRouter();
-  const [generating, setGenerating] = useState(false);
+  const session = useSession();
+
+  useEffect(() => {
+    const getUserCredits = async () => {
+      try {
+        const credits = await getUserCreditsAction(session?.data?.user?.id!);
+        setCredits(credits!);
+      } catch (error) {
+        console.log("Error", error);
+        toast.error("Error getting user credits");
+      }
+    };
+    const checkPro = async () => {
+      try {
+        const isPro = await checkSubscriptionAction(session?.data?.user?.id!);
+        console.log("Is Pro", isPro);
+        setIsPro(isPro);
+      } catch (error) {
+        console.log("Error", error);
+      }
+    }
+    getUserCredits();
+    checkPro();
+  }, [session]);
+  
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -31,8 +60,12 @@ export function InputBox({session}: {session: any}) {
         return toast("Chapter title is required.");
       }
     }
+    if(isPro === false && credits === 0) {
+      setGenerating(false);
+      return toast.error("You have reached your free generation limit. Please upgrade to generate more courses");
+    }
     try {
-      const course = await generateCourse(chapters, courseTitle, session?.data?.user?.id, bannerUrl, visibility);
+      const course = await generateCourse(chapters, courseTitle, session?.data?.user?.id!, bannerUrl, visibility, isPro);
       console.log("Generated Course", course);
       if(course.chapters.length === 0) {
         throw Error;
@@ -227,6 +260,8 @@ export function InputBox({session}: {session: any}) {
 
         <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
       </form>
+
+      {!isPro && <SubscriptionAction credits={credits} /> }
     </div>
   );
 }
