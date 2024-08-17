@@ -16,6 +16,11 @@ const nextConfig = {
             port: "",
           },
           {
+            hostname: "plus.unsplash.com",
+            protocol: "https",
+            port: "",
+          },
+          {
             hostname: "assets.aceternity.com",
             protocol: "https",
             port: "",
@@ -27,6 +32,11 @@ const nextConfig = {
           },
           {
             hostname: "www.youtube.com",
+            protocol: "https",
+            port: "",
+          },
+          {
+            hostname: "res.cloudinary.com",
             protocol: "https",
             port: "",
           },

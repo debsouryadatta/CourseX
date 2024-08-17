@@ -41,7 +41,7 @@ import {
           {/* <Button variant="outline">Open</Button> */}
           <EllipsisVertical />
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-40">
+        <DropdownMenuContent className="w-40 dark:bg-zinc-950">
           {/* <DropdownMenuLabel>My Account</DropdownMenuLabel> */}
           <DropdownMenuGroup>
             {/* <DropdownMenuItem className="cursor-pointer">

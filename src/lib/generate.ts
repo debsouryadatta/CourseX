@@ -12,7 +12,7 @@ dotenv.config();
 const model = new ChatGroq({
   apiKey: process.env.NEXT_PUBLIC_GROQ_API_KEY,
   //   modelName: "mixtral-8x7b-32768",
-  modelName: "llama3-8b-8192",
+  modelName: "llama-3.1-8b-instant",
 });
 
 const prompt1 = ChatPromptTemplate.fromTemplate(`
@@ -29,7 +29,7 @@ const prompt3 = ChatPromptTemplate.fromTemplate(`
     `);
 
 const prompt4 = ChatPromptTemplate.fromTemplate(`
-    You are an AI capable of summarising a youtube transcript, summarise in 250 words or less and do not talk of the sponsors or anything unrelated to the main topic, also do not introduce what the summary is about. Here is the transcript: {transcript}.
+    You are an AI capable of summarising a youtube transcript, summarise in 250 words or less and do not talk of the sponsors or anything unrelated to the main topic, also do not introduce what the summary is about. Here is the transcript: {transcript}. In the result, directly start with the summary, please do not include any other reference or any information.
     Formatting Instructions: {format_instructions}
     `);
 
@@ -44,6 +44,12 @@ const prompt6 = ChatPromptTemplate.fromTemplate(`
     Please provide a good description for a course about {courseTitle}. The description should be exactly of 90 characters.
     Formatting Instructions: {format_instructions}
     `);
+
+const prompt7 = ChatPromptTemplate.fromTemplate(`
+    You are an AI capable of generating multiple choice question(mcq) using the given subtopic content. Please provide a single mcq question with 4 options and the correct answer. The question should be based on the subtopic content - {subtopicExplanation} and should be the most important question from the content given.
+    Please provide the question, an array of answers and the correct answer in the format mentioned in the formatting instructions, please don't include any other starting reference or any other information.
+    Formatting Instructions: {format_instructions}
+  `);
 
 
 async function generateSubtopics(chapter: string) {
@@ -228,4 +234,43 @@ export async function generateCourseDescription(courseTitle: string) {
   });  
 
   return res.description;
+}
+
+
+
+
+
+
+
+// For Multiple Choice Questions
+export async function generateMultipleChoiceQuestions(chapters: any) {
+  const outoutParser7 = StructuredOutputParser.fromZodSchema(
+    z.object({
+      mcq: z.object({
+        questionId: z.number().describe("The ID of the question"),
+        question: z.string().describe("The question of the mcq"),
+        options: z.array(z.string()).describe("An array of options of the mcq"),
+        answer: z.string().describe("Just the answer of the mcq"),
+      }),
+    })
+  );
+
+  let mcqs = [];
+  let questionIdCounter = 1;
+  for(const chapter of chapters){
+    let chapterMcqs = [];
+    for(const subtopicExplanation of chapter.subtopicExplanations){
+      const chain7 = prompt7.pipe(model).pipe(outoutParser7);
+      const res = await chain7.invoke({
+        subtopicExplanation: subtopicExplanation,
+        format_instructions: outoutParser7.getFormatInstructions(),
+      });
+
+      // Add questionId to each mcq
+      res.mcq.questionId = questionIdCounter++;
+      chapterMcqs.push(res.mcq);
+    }
+    mcqs.push(chapterMcqs);
+  }
+  return mcqs;
 }

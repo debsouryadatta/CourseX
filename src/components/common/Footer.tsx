@@ -1,5 +1,13 @@
+"use client";
+
+import { useTheme } from 'next-themes';
+import { useEffect } from 'react';
 
 export default function Footer() {
+  const { theme } = useTheme();
+  console.log(theme);
+
+
   return (
     <div className="text-center pb-10">
       <a
@@ -7,11 +15,17 @@ export default function Footer() {
         className="flex items-center justify-center mb-5 text-2xl font-semibold text-gray-500"
       >
         <div>
-          <img
-            src="https://res.cloudinary.com/diyxwdtjd/image/upload/v1721889560/projects/CX_logo_u2eyid.png"
-            className="h-20 mr-3 sm:h-20"
-            alt="CourseX logo"
-          />
+        {theme && (
+            <img
+              src={
+                theme === 'dark'
+                  ? 'https://res.cloudinary.com/diyxwdtjd/image/upload/v1723026483/projects/CX-removebg-preview_lqpcxg.png'
+                  : 'https://res.cloudinary.com/diyxwdtjd/image/upload/v1723026468/projects/2-removebg-preview_wyfijg.png'
+              }
+              className="w-[100px] h-[100px] mr-3"
+              alt="CourseX logo"
+            />
+          )}
           <span>CourseX</span>
         </div>
       </a>

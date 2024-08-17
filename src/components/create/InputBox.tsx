@@ -1,23 +1,54 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { cn } from "@/utils/cn";
-import {
-  IconBrandGithub,
-  IconBrandGoogle,
-  IconBrandOnlyfans,
-} from "@tabler/icons-react";
-import { Loader2, Plus, Trash } from "lucide-react";
+import { InfoIcon, Loader2, Plus, Trash } from "lucide-react";
 import { toast } from "sonner";
-import { generateCourse } from "@/app/create/actions";
+import { checkSubscriptionAction, generateCourse, getPhotoUrlAction, getUserCreditsAction } from "@/app/(inner_routes)/create/actions";
 import { useRouter } from "next/navigation";
+import { FileUpload } from "../ui/file-upload";
+import { Switch } from "@/components/ui/switch";
+import SubscriptionAction from "./SubscriptionAction";
+import { useSession } from "next-auth/react";
 
-export function InputBox({session}: {session: any}) {
+export function InputBox() {
   const [courseTitle, setCourseTitle] = useState("");
   const [chapters, setChapters] = useState([{ id: 1, title: "" }]);
-  const router = useRouter();
+  const [files, setFiles] = useState<File[]>([]);
+  const [generateImage, setGenerateImage] = useState(false);
+  const [visibility, setVisibility] = useState("public");
+  const [bannerUrl, setBannerUrl] = useState("");
   const [generating, setGenerating] = useState(false);
+  const [credits, setCredits] = useState(0);
+  const [isPro, setIsPro] = useState(false);
+
+  const router = useRouter();
+  const session = useSession();
+
+  useEffect(() => {
+    const getUserCredits = async () => {
+      try {
+        const credits = await getUserCreditsAction(session?.data?.user?.id!);
+        setCredits(credits!);
+      } catch (error) {
+        console.log("Error", error);
+        toast.error("Error getting user credits");
+      }
+    };
+    const checkPro = async () => {
+      try {
+        const isPro = await checkSubscriptionAction(session?.data?.user?.id!);
+        console.log("Is Pro", isPro);
+        setIsPro(isPro);
+      } catch (error) {
+        console.log("Error", error);
+      }
+    }
+    getUserCredits();
+    checkPro();
+  }, [session]);
+  
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -29,19 +60,23 @@ export function InputBox({session}: {session: any}) {
         return toast("Chapter title is required.");
       }
     }
+    if(isPro === false && credits === 0) {
+      setGenerating(false);
+      return toast.error("You have reached your free generation limit. Please upgrade to generate more courses");
+    }
     try {
-      const course = await generateCourse(chapters, courseTitle, session?.data?.user?.id);
+      const course = await generateCourse(chapters, courseTitle, session?.data?.user?.id!, bannerUrl, visibility, isPro);
       console.log("Generated Course", course);
       if(course.chapters.length === 0) {
         throw Error;
       }
       setGenerating(false);
-      toast("Course has been generated successfully.");
+      toast.success("Course has been generated successfully.");
       router.push(`/gallery`);
     } catch (error) {
       console.log("Error", error);
       setGenerating(false);
-      toast("An error occured generating the course. Please try again.");
+      toast.error("An error occured generating the course. Please try again.");
     }
   };
 
@@ -85,14 +120,41 @@ export function InputBox({session}: {session: any}) {
     ));
   };
 
+  const handleFileUpload = async (files: File[]) => {
+    setFiles(files);
+    console.log(files);
+
+    try {
+      // Get the photo URL from cloudinary
+      const formData = new FormData();
+      formData.append("file", files[0]);
+      const photoUrl = await getPhotoUrlAction(formData);
+      console.log("Photo URL: ", photoUrl);
+      toast.success("Photo uploaded successfully");
+
+      setBannerUrl(photoUrl);
+    } catch (error) {
+      console.log(error);
+      toast.error("Failed to upload photo");
+    }
+  }
+
   return (
-    <div className="max-w-3xl w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
+    <div className="max-w-3xl w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-zinc-950">
       <h2 className="font-bold text-2xl text-neutral-800 dark:text-neutral-200">
         Generate Course
       </h2>
       <p className="text-neutral-600 text-sm max-w-sm mt-2 dark:text-neutral-300">
         Unveil The Power of AI in Education
       </p>
+      <div className="flex p-4 mt-5 border-none bg-zinc-200 dark:bg-zinc-800 rounded-md">
+        <InfoIcon className="w-12 h-12 mr-3 text-blue-400" />
+        <div>
+          Enter in a course title, or what you want to learn about. Then enter a
+          list of units, which are the specifics you want to learn. And our AI
+          will generate a course for you!
+        </div>
+      </div>
 
       <form className="my-8" onSubmit={handleSubmit}>
         <LabelInputContainer className="mb-4">
@@ -133,6 +195,46 @@ export function InputBox({session}: {session: any}) {
           </div>
         </div>
 
+        <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
+
+        <LabelInputContainer className="mb-4">
+          <Label className="text-lg">Upload Course Banner</Label>
+        </LabelInputContainer>
+
+        <div className="flex justify-end items-center mb-4">
+          <Switch checked={generateImage} onCheckedChange={() => {
+            setGenerateImage(!generateImage)
+            // console.log(generateImage);
+          }}  />
+          <span className="ml-2">Generate with Unsplash</span>
+        </div>
+
+        <div className="w-full mx-auto border border-dashed bg-gray-300 dark:bg-zinc-950 border-neutral-200 dark:border-neutral-800 rounded-lg mb-8">
+        <FileUpload onChange={handleFileUpload} />
+      </div>
+
+
+
+      <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
+
+
+      <div className="mb-20 flex items-center">
+      <LabelInputContainer>
+        <Label className="text-lg">Visibility</Label>
+      </LabelInputContainer>
+      <div className="px-2 dark:bg-zinc-900 rounded-md cursor-pointer">
+        <select defaultValue={"public"} className="rounded-md p-2 dark:bg-zinc-900 focus:outline-none cursor-pointer" name="Select Visibility" id=""
+        onChange={(e) => setVisibility(e.target.value)}
+        >
+          <option value="public">Public</option>
+          <option value="invite-only">Invite Only</option>
+        </select>
+      </div>
+      </div>
+
+
+
+
         {generating ? (
           <button
             className="opacity-70 cursor-pointer bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
@@ -158,6 +260,8 @@ export function InputBox({session}: {session: any}) {
 
         <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
       </form>
+
+      {!isPro && <SubscriptionAction credits={credits} /> }
     </div>
   );
 }

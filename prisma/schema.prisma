@@ -1,5 +1,3 @@
-
- 
 generator client {
   provider = "prisma-client-js"
 }
@@ -9,27 +7,29 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
- 
 model User {
   id            String          @id @default(cuid())
   name          String?
   email         String          @unique
   emailVerified DateTime?
   image         String?
+  bio           String?         @default("Update bio")
+  credits       Int             @default(10)
   accounts      Account[]
   sessions      Session[]
   // Optional for WebAuthn support
   Authenticator Authenticator[]
- 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
   courses   Course[]
   likes     Like[]
   comments  Comment[]
   bookmarks Bookmark[]
+  followers Follow[]   @relation("UserFollowers")
+  following Follow[]   @relation("UserFollowing")
 }
- 
+
 model Account {
   userId            String
   type              String
@@ -42,33 +42,33 @@ model Account {
   scope             String?
   id_token          String?
   session_state     String?
- 
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
- 
+
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
+
   @@id([provider, providerAccountId])
 }
- 
+
 model Session {
   sessionToken String   @unique
   userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
- 
+
 model VerificationToken {
   identifier String
   token      String
   expires    DateTime
- 
+
   @@id([identifier, token])
 }
- 
+
 // Optional for WebAuthn support
 model Authenticator {
   credentialID         String  @unique
@@ -79,65 +79,65 @@ model Authenticator {
   credentialDeviceType String
   credentialBackedUp   Boolean
   transports           String?
- 
+
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
+
   @@id([userId, credentialID])
 }
 
-
 model Course {
-  id              String @id @default(cuid())
-  title           String
-  image           String
-  description     String
-  units           Chapter[]
-  userId          String
-  likes           Like[]
-  comments        Comment[]
-  bookmarks       Bookmark[]
-  user            User @relation(fields: [userId], references: [id])
+  id          String     @id @default(cuid())
+  title       String
+  image       String
+  description String
+  units       Chapter[]
+  userId      String
+  visibility  String     @default("public")
+  inviteCode  String?    @unique
+  mcqs        Json?
+  likes       Like[]
+  comments    Comment[]
+  bookmarks   Bookmark[]
+  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId], name: "userId")
 }
 
-
 model Chapter {
-  id                    String    @id @default(cuid())
-  courseId              String
+  id       String @id @default(cuid())
+  courseId String
 
-  title                  String
-  subtopics             String[]
-  subtopicExplanations  String[]
+  title                String
+  subtopics            String[]
+  subtopicExplanations String[]
 
-  youtubeSearchQuery    String
-  videoId               String?
-  summary               String?    @db.VarChar(3000)
-  course                Course     @relation(fields: [courseId], references: [id])
+  youtubeSearchQuery String
+  videoId            String?
+  summary            String? @db.VarChar(3000)
+  course             Course  @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
   @@index([courseId], name: "courseId")
 }
 
-
 model Like {
-  id      String @id @default(cuid())
-  userId  String
+  id       String @id @default(cuid())
+  userId   String
   courseId String
 
-  user    User   @relation(fields: [userId], references: [id])
-  course  Course @relation(fields: [courseId], references: [id])
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
   @@index([userId], name: "userId2")
   @@index([courseId], name: "courseId2")
 }
 
 model Comment {
-  id      String @id @default(cuid())
-  userId  String
+  id       String @id @default(cuid())
+  userId   String
   courseId String
-  text    String
-  user    User   @relation(fields: [userId], references: [id])
-  course  Course @relation(fields: [courseId], references: [id])
+  text     String
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
   @@index([userId], name: "userId3")
   @@index([courseId], name: "courseId3")
@@ -147,11 +147,33 @@ model Bookmark {
   id        String   @id @default(cuid())
   userId    String
   courseId  String
-  user      User     @relation(fields: [userId], references: [id])
-  course    Course   @relation(fields: [courseId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
 
   @@unique([userId, courseId], name: "user_course_unique")
   @@index([userId], name: "userId4")
   @@index([courseId], name: "courseId4")
+}
+
+// Follower -> The one who follows
+// Following -> The one who is followed
+// Eg: I followed my friend, then I am the follower and my friend is the following
+model Follow {
+  id          String @id @default(cuid())
+  followerId  String
+  followingId String
+  follower    User   @relation("UserFollowers", fields: [followerId], references: [id], onDelete: Cascade)
+  following   User   @relation("UserFollowing", fields: [followingId], references: [id], onDelete: Cascade)
+
+  @@unique([followerId, followingId])
+}
+
+model UserSubscription {
+  id                     String    @id @default(cuid())
+  userId                 String    @unique
+  stripeCustomerId       String    @unique @map(name: "stripe_customer_id")
+  stripeSubscriptionId   String?   @unique @map(name: "stripe_subscription_id")
+  stripePriceId          String?   @map(name: "stripe_price_id")
+  stripeCurrentPeriodEnd DateTime? @map(name: "stripe_current_period_end")
 }
