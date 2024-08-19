@@ -30,6 +30,14 @@
 20. Changing schema with addition of Follow table, adding follow, unfollow button in the profile page
 21. Showing the list of followers and following in the profile page(`pnpm i zustand`, for state management)
 22. Implementing on cascade delete functionalities in every tables
+23. Implementing course Visibility feature using invite codes for each course and also providing a visibility column in the course table
+24. Adding the uploading course banner feature manually or giving an option to generate using unsplash api
+25. Adding the concept check component which will include few mcqs based on the chapter contents, generated the mcqs using the langchain
+26. Integrating the stripe payment gateway for premium generations, free tier -> 10 generations, premium -> unlimited generations for now
+27. Creating a dockerfile, docker-compose file and github actions yml file for deploying it to VM and enable CI/CD
+
+
+- Finally fixed the nextauth error in production environment, just in .env add the AUTH_URL=https://coursex.souryax.tech
 
 ### Planning
 - The above was about v0.1

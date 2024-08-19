@@ -12,7 +12,8 @@ dotenv.config();
 const model = new ChatGroq({
   apiKey: process.env.NEXT_PUBLIC_GROQ_API_KEY,
   //   modelName: "mixtral-8x7b-32768",
-  modelName: "llama-3.1-8b-instant",
+  // modelName: "llama-3.1-8b-instant",
+  modelName: "llama-3.1-70b-versatile",
 });
 
 const prompt1 = ChatPromptTemplate.fromTemplate(`

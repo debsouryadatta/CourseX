@@ -32,7 +32,7 @@ export async function generateCourse(chapters: { id: number, title: string }[], 
         let mcqs = await generateMultipleChoiceQuestions(generatedChapters);
         console.log("Generated mcqs: ---------------------------------------------------------", mcqs);
         
-        let inviteCode = visibility === 'invite-only' ? nanoid(10) : null;
+        let inviteCode = nanoid(10);
 
         
         const response = await prisma.course.create({
