@@ -16,7 +16,7 @@
     CourseX - Unveil The Power of AI in Education. Generate courses with A.I.
     <br />
     <br />
-    <a href="https://coursex-bswq.onrender.com/">View Demo</a>
+    <a href="https://coursex.souryax.tech/">View Demo</a>
     ·
     <a href="https://github.com/debsouryadatta/CourseX/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
     ·
@@ -58,12 +58,12 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Course Generator is an innovative web application built with Next.js, leveraging the power of AI to create comprehensive course content. This full-stack project showcases modern web development practices, combining the robustness of Prisma and PostgreSQL for database management with the sleek designs of Shadcn UI and Aceternity UI kit. The app integrates advanced AI capabilities using LangChain.js and the GROQ API for course generation, while also incorporating external services like YouTube and Unsplash APIs to enrich the learning experience. With features ranging from user authentication to social media interactions and PDF exports, Course Generator demonstrates a sophisticated approach to educational technology, blending AI-driven content creation with user-centric design and functionality.
+Course Generator is an innovative web application built with Next.js, leveraging the power of AI to create comprehensive course content. This full-stack project showcases modern web development practices, combining the robustness of Prisma and PostgreSQL for database management with the sleek designs of Shadcn UI and Aceternity UI kit. The app integrates advanced AI capabilities using LangChain.js and the GROQ API for course generation, while also incorporating external services like YouTube and Unsplash APIs to enrich the learning experience. With features ranging from user authentication to social media interactions, PDF exports, and payment integration, Course Generator demonstrates a sophisticated approach to educational technology, blending AI-driven content creation with user-centric design and functionality.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### CourseX Demo
-Check out the live demo of CourseX [here](https://coursex-bswq.onrender.com/).
+Check out the live demo of CourseX [here](https://coursex.souryax.tech/).
 
 
 ### Key Features
@@ -83,20 +83,33 @@ Check out the live demo of CourseX [here](https://coursex-bswq.onrender.com/).
     - Bookmark/save course feature
 - PDF export functionality for entire course content using html2pdf.js
 - Database management with Prisma and PostgreSQL
+- Search functionality for courses and profiles with debounce throttling
+- Enhanced profile page with followers, following, and total courses information
+- Edit profile option with image upload to Cloudinary
+- Course visibility control with invite codes
+- Concept check component with AI-generated MCQs
+- Stripe payment gateway integration for premium features
+- Containerization with Docker and CI/CD pipeline with GitHub Actions
 
 
 ### Built With
 
-- Next.js
-- Prisma
-- PostgreSQL
-- Shadcn UI
-- Aceternity UI
-- LangChain.js
-- GROQ API
-- YouTube API
-- Unsplash API
-- html2pdf.js
+- Next.js (React framework)
+- Prisma (ORM)
+- PostgreSQL (Database)
+- Shadcn UI (for design)
+- Aceternity UI kit (for design)
+- LangChain.js (for AI course generation)
+- GROQ API (for AI course generation)
+- YouTube API (for video content)
+- Unsplash API (for course imagery)
+- html2pdf.js (for PDF export)
+- Zustand (for state management)
+- Lodash (for debounce functionality)
+- Cloudinary (for image upload)
+- Stripe (for payment processing)
+- Docker (for containerization)
+- GitHub Actions (for CI/CD)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -138,12 +151,14 @@ Create a `.env` file in the root directory of the project and add the following 
 ```env
 # Database
 DATABASE_URL=
+BASE_URL=
 
 
 # Next AUth
 AUTH_SECRET=
 AUTH_GOOGLE_ID=
 AUTH_GOOGLE_SECRET=
+AUTH_URL=
 
 
 # Groq API
@@ -163,6 +178,19 @@ LANGCHAIN_CALLBACKS_BACKGROUND=
 NEXT_PUBLIC_YOUTUBE_API_KEY=
 # UNSPLASH_API_KEY=
 UNSPLASH_API_KEY=
+
+
+# Cloudinary
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+CLOUDINARY_UPLOAD_PRESET=
+CLOUDINARY_FOLDER=
+
+
+# Stripe
+STRIPE_SECRET_KEY=
+STRIPE_WEBHOOK_SECRET=
 ```
 Replace the placeholder values with your actual respective account credentials.
 
@@ -172,6 +200,18 @@ Replace the placeholder values with your actual respective account credentials.
 Run the development server:
 ```bash
 npm run dev
+```
+
+<br>
+
+### Running the Project on Docker Container
+Build the Docker image:
+```bash
+docker-compose build
+```
+Run the Docker container:
+```bash
+docker-compose up
 ```
 
 
