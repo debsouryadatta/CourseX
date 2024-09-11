@@ -3,13 +3,18 @@
 import { getPhotoUrl } from "@/lib/cloudinary";
 import { prisma } from "@/lib/db";
 import { generateChapter, generateCourseDescription, generateCourseImage, generateMultipleChoiceQuestions } from "@/lib/generate";
+import { Chapter } from "@/types";
+import axios, { AxiosResponse } from "axios";
 import { nanoid } from 'nanoid';
+
+const FASTAPI_BASE_URL = process.env.FASTAPI_BASE_URL as string;
 
 export async function generateChapters(chapters: { id: number, title: string }[]){
     let genChapters = [];
     try {
         for(const chapter of chapters){
-          let res = await generateChapter(chapter.title);
+          // let res = await generateChapter(chapter.title);
+          let res: Chapter = (await axios.get(`${FASTAPI_BASE_URL}/generate/course/chapter/${chapter.title}`)).data;
           genChapters.push(res);
         }
         console.log("Generated Chapters", genChapters);
@@ -24,12 +29,15 @@ export async function generateChapters(chapters: { id: number, title: string }[]
 
 export async function generateCourse(chapters: { id: number, title: string }[], courseTitle: string, userId: string, imageUrl: string, visibility: string, isPro: boolean){
     try {
-        let generatedChapters = await generateChapters(chapters);
-        let description = await generateCourseDescription(courseTitle);
+        let generatedChapters: Chapter[] = await generateChapters(chapters);
+        // let description = await generateCourseDescription(courseTitle);
+        let description: string = (await axios.get(`${FASTAPI_BASE_URL}/generate/course/description/${courseTitle}`)).data;
         if(imageUrl === ""){
-            imageUrl = await generateCourseImage(courseTitle);
+            // imageUrl = await generateCourseImage(courseTitle);
+            imageUrl = (await axios.get(`${FASTAPI_BASE_URL}/generate/course/image/${courseTitle}`)).data;
         }
-        let mcqs = await generateMultipleChoiceQuestions(generatedChapters);
+        // let mcqs = await generateMultipleChoiceQuestions(generatedChapters);
+        let mcqs = (await axios.post(`${FASTAPI_BASE_URL}/generate/course/chapter/mcq`, {chapters: generatedChapters})).data;
         console.log("Generated mcqs: ---------------------------------------------------------", mcqs);
         
         let inviteCode = nanoid(10);

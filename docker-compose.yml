@@ -1,8 +1,26 @@
 version: '3'
 services:
-  nextjs:
+  fastapi-app:
     build:
-      context: .
+      context: ./fastapi-app
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    networks:
+      - "coursex"
+
+  nextjs-app:
+    depends_on:
+      - fastapi-app
+    build:
+      context: ./nextjs-app
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
+    networks:
+      - "coursex"
+
+
+networks:
+  coursex:
+    driver: bridge

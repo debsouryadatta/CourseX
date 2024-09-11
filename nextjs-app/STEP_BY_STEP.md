@@ -21,6 +21,8 @@
 13. Function Timeout only - 10Sec in free tier of Vercel, so had to switch to Render.com
 14. Render.com next auth error -> Fixed by adding `trustHost: true` in the nextauth config and also adding forcedBaseUrl in the redirect of the nextauth config
 
+**v0.1 Done✅**
+
 15. Creating the Landing page of the website using aceternity components - Spotlight, cards section, Magic-button, flip-words, etc
 16. Switching from Top Navigation to Sidebar Navigation using aceternity ui kit
 17. Adding a Carousel of featured courses on the gallery page
@@ -36,14 +38,26 @@
 26. Adding the concept check component which will include few mcqs based on the chapter contents, generated the mcqs using the langchain
 27. Integrating the stripe payment gateway for premium generations, free tier -> 10 generations, premium -> unlimited generations for now
 28. Creating a dockerfile, docker-compose file and github actions yml file for deploying it to VM and enable CI/CD
+29. Finally fixed the nextauth error in production environment, just in .env add the AUTH_URL=https://coursex.souryax.tech
+
+**v0.2 Done✅**
+
+30. Separating the course generation logic into the FastApi service using langchain python, integrating the whole thing using docker-compose
 
 
-- Finally fixed the nextauth error in production environment, just in .env add the AUTH_URL=https://coursex.souryax.tech
 
-### Planning
-- The above was about v0.1
-- From now there will be 2 branches, main and dev
-- Main will be the stable version, dev will be the development version(After major changes, we will be merging the dev into main)
+
+### Stripe Implementation:
+- `pnpm i stripe`
+- Create a stripe client inside the lib folder
+- Create /api/stripe/route.ts -> for creating the stripe session & sending the stripe url when the api gets called from the frontend
+- Create /api/webhook/route.ts -> for handling the stripe webhook events and creating the userSubscription row in the database accordingly
+-  Install stripe cli from https://docs.stripe.com/stripe-cli , go to webhooks section on the dashboard and follow the steps
+
+
+
+
+
 
 ### Issues
 - #1 - [[FEAT]: Build a modern landing page using aceternity components](https://github.com/debsouryadatta/CourseX/issues/1) ✅
@@ -55,20 +69,30 @@
 - #7 - [[FEAT]: Create a payment functionality for premium generations, free tier -> 10 generations, premium -> 300 generations](https://github.com/debsouryadatta/CourseX/issues/7) ✅
 - #8 - [[FEAT]: Create a dockerfile, docker-compose file and github actions yml file for deploying it to VM and enable CI/CD](https://github.com/debsouryadatta/CourseX/issues/8) ✅ 
 
+**v0.2 Done✅**
+
+- #10 - [[FEAT]: Separate the course generation logic into the FastApi service using langchain python, integrate the whole thing using docker-compose](https://github.com/debsouryadatta/CourseX/issues/10) ✅
 
 
 
+
+
+### Planning
+- The above was about v0.1
+- From now there will be 2 branches, main and dev
+- Main will be the stable version, dev will be the development version(After major changes, we will be merging the dev into main)
 
 
 ### Features Planning
-- Enhancing Course generation feature
-    - The summary should have more words
-    - The subtopics should not be 3, it should be 10 with much more words
-    - The youtube search query should be updated -> eg - "What is {topic} in English"
-    - Top 15 important questions on the chapter should be added below
-    - Separate mcq page for the chapter of a specific course(25 mcqs)
-    - The course will be public or invite only
-    - Adding the banner image for the course by the user separately
+- Chat with PDF feature
+- Roadmap generation feature
+- Summarise chapter page, ask from chapter's page
+- Real time quiz feature with quiz generation
+- Everything on coin based system(Generations + Quizzes)
+- Accepting both stripe as well as crypto payments for buying coins
+- Chat, call, video call feature
+
+
 
 - Weekly quizzes 
     - Quizzes will be generated automatically using AI when the previous quiz ends, users can join the quiz till the next week until it starts
@@ -76,14 +100,6 @@
     - Allow all users to take quizzes without connecting a wallet, Prompt users to connect a wallet before or after the quiz to claim token rewards, Store potential rewards for a limited time, allowing users to claim them later by connecting a wallet
     - All the above stuff will be in auto pilot mode, no manual intervention required
   
-- Premium Generations Payments(Free tier -> Monthly 10 genertaions, Premium -> 300 generations)
-    - Centralized Stripe Payments, Cryptocurrency Payments, Your Own Token Payments
 
 
 
-### Stripe Implementation:
-- `pnpm i stripe`
-- Create a stripe client inside the lib folder
-- Create /api/stripe/route.ts -> for creating the stripe session & sending the stripe url when the api gets called from the frontend
-- Create /api/webhook/route.ts -> for handling the stripe webhook events and creating the userSubscription row in the database accordingly
--  Install stripe cli from https://docs.stripe.com/stripe-cli , go to webhooks section on the dashboard and follow the steps

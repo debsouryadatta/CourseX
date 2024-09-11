@@ -275,3 +275,42 @@ export async function generateMultipleChoiceQuestions(chapters: any) {
   }
   return mcqs;
 }
+
+
+
+
+
+
+
+// For generating a roadmap which includes the topics and subtopics related to the roadmap title
+export async function generateRoadmap(roadmapTitle: string) {
+  const outoutParser8 = StructuredOutputParser.fromZodSchema(
+    z.object({
+        title: z.string().describe("The title of the roadmap"),
+        topics: z.array(
+          z.object({
+            title: z.string().describe("The title of the topic"),
+            subtopics: z.array(z.string()).describe("The subtopics of the topic. Should be at max 6 subtopics"),
+          })
+        ),
+    })
+  );
+
+  const prompt8 = ChatPromptTemplate.fromTemplate(`
+    You are an AI capable of generating a roadmap for the roadmap title {roadmapTitle}.
+    Please provide a perfect industry standard up to date roadmap for the given roadmap title. The roadmap should contain the topics and subtopics related to the roadmap title. The roadmap should be in the format mentioned in the formatting instructions.
+    Formatting Instructions: {format_instructions}
+    `);
+
+  const chain8 = prompt8.pipe(model).pipe(outoutParser8);
+
+  const res = await chain8.invoke({
+    roadmapTitle: roadmapTitle,
+    format_instructions: outoutParser8.getFormatInstructions(),
+  });
+
+  console.log("res: ", res);
+  return res;
+}
+
+generateRoadmap("Artificial Intelligence");

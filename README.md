@@ -58,7 +58,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Course Generator is an innovative web application built with Next.js, leveraging the power of AI to create comprehensive course content. This full-stack project showcases modern web development practices, combining the robustness of Prisma and PostgreSQL for database management with the sleek designs of Shadcn UI and Aceternity UI kit. The app integrates advanced AI capabilities using LangChain.js and the GROQ API for course generation, while also incorporating external services like YouTube and Unsplash APIs to enrich the learning experience. With features ranging from user authentication to social media interactions, PDF exports, and payment integration, Course Generator demonstrates a sophisticated approach to educational technology, blending AI-driven content creation with user-centric design and functionality.
+Course Generator is an innovative web application built with Next.js, leveraging the power of AI to create comprehensive course content. This full-stack project showcases modern web development practices, combining the robustness of Prisma and PostgreSQL for database management with the sleek designs of Shadcn UI and Aceternity UI kit. The app integrates advanced AI capabilities using LangChain and the GROQ API for course generation, while also incorporating external services like YouTube and Unsplash APIs to enrich the learning experience. With features ranging from user authentication to social media interactions, PDF exports, and payment integration, Course Generator demonstrates a sophisticated approach to educational technology, blending AI-driven content creation with user-centric design and functionality.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -67,7 +67,7 @@ Check out the live demo of CourseX [here](https://coursex.souryax.tech/).
 
 
 ### Key Features
-- AI-powered course generation using LangChain.js and GROQ API
+- AI-powered course generation using LangChain and GROQ API
 - User authentication and authorization with NextAuth
 - Responsive and modern UI design using Shadcn UI and Aceternity UI kit
 - Dark mode support with next-themes

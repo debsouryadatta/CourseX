@@ -3,8 +3,8 @@ import { prisma } from "@/lib/db";
 import { stripe } from "@/lib/stripe";
 import { NextResponse } from "next/server";
 
-// const settingsUrl = process.env.BASE_URL + "/settings";
-const settingsUrl = "https://coursex.souryax.tech" + "/settings";
+const settingsUrl = process.env.NEXTJS_BASE_URL + "/settings";
+// const settingsUrl = "https://coursex.souryax.tech" + "/settings";
 
 export async function GET() {
   try {

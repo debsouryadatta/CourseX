@@ -1,6 +1,7 @@
 import { Gallery } from "@/components/gallery/Gallery";
 import { CarouselComp } from "@/components/gallery/CarouselComp";
 import { prisma } from "@/lib/db";
+import { generateRoadmap } from "@/lib/generate";
 
 async function getCourses(){
   try {
@@ -22,6 +23,12 @@ async function getCourses(){
 export default async function page() {
   const courses = await getCourses();
   console.log("Courses: ", courses);
+
+  // const roadmap = await generateRoadmap("Generate Ai");
+  // roadmap.topics.forEach(topic => {
+  //   console.log("Topic: ", topic);
+  //   console.log("Subtopics: ", topic.subtopics);
+  // })
   
   return (
     <div className="mt-20 min-h-[75vh]">
