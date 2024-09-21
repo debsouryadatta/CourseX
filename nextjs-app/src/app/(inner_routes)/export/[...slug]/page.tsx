@@ -1,15 +1,14 @@
 "use client";
 
-import { ImagesSlider } from "@/components/ui/images-slider";
 import { getFullCourseAction } from "./actions";
-import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-// @ts-ignore
-import html2pdf from "html2pdf.js";
 import Image from "next/image";
-// import { html2pdf } from "html2pdf-ts";
-// import { HTML2PDFOptions } from "html2pdf-ts";
+import { toast } from "sonner";
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
+import { useTheme } from "next-themes";
+
 
 type Props = {
   params: {
@@ -20,37 +19,36 @@ type Props = {
 export default function page({ params: { slug } }: Props) {
   const [fullCourse, setFullCourse] = useState<any>(null);
 
-  const exportPDF = () => {
-    // Accurately measure the content's width, possibly with a more refined approach
-    const contentWidth = Math.max(
-      document.documentElement.scrollWidth,
-      document.body.scrollWidth,
-      document.documentElement.offsetWidth,
-      document.body.offsetWidth,
-      document.documentElement.clientWidth
-    );
-  
-    // Adjust html2canvas and jsPDF options based on content size
-    const options = {
-      filename: "webpage.pdf",
-      image: { type: "jpeg", quality: 0.98 },
-      html2canvas: {
-        scale: 1, // Adjust based on testing
-        scrollX: 0,
-        scrollY: 0,
-        windowWidth: contentWidth, // Use the accurately measured content width
-        width: contentWidth, // Explicitly set the width to ensure it captures the full content
-        windowHeight: document.documentElement.offsetHeight,
-      },
-      jsPDF: {
-        unit: "in",
-        format: "a3", // Consider using a larger format if necessary
-        orientation: "landscape", // Adjust based on content orientation
-      },
-    };
-  
-    // Use html2pdf to export the body of the webpage as PDF
-    html2pdf().from(document.body).set(options).save();
+  const componentToExport = useRef<HTMLDivElement>(null);
+  const { theme } = useTheme()
+
+  const exportPDF = async () => {
+    // Change theme to light mode for exporting
+    if(theme === "dark") {
+      toast.error("Change theme to light mode for exporting");
+      return;
+    }
+    try {
+      if (componentToExport.current) {
+        const canvas = await html2canvas(componentToExport.current, {
+          scale: 2, // Increase scale for better quality
+          useCORS: true, // This might be necessary for loading images
+        });
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jsPDF({
+          orientation: 'portrait',
+          unit: 'px',
+          format: [canvas.width, canvas.height]
+        });
+        
+        pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
+        pdf.save(`${fullCourse?.title}.pdf`);
+      }
+      toast.success("Course exported successfully");
+    } catch (error) {
+      console.log("Error", error);
+      toast.error("Failed to export course");
+    }
   };
 
   useEffect(() => {
@@ -68,7 +66,7 @@ export default function page({ params: { slug } }: Props) {
   }, []);
 
   return (
-    <div className="mt-20 flex flex-col justify-center items-center">
+    <div ref={componentToExport} className="mt-20 flex flex-col justify-center items-center">
       <Button onClick={exportPDF} className="my-4" variant={"outline"}>
         Export as PDF
       </Button>
