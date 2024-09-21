@@ -4,13 +4,20 @@ import { cn } from "@/utils/cn";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { Dispatch, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useSession } from "next-auth/react";
+import { Trash2 } from "lucide-react";
+import { Button } from "./button";
+import { deleteBookmarkAction } from "@/app/(inner_routes)/bookmarks/actions";
+import { toast } from "sonner";
+import { BookmarkCourse } from "@/types";
 
 export const HoverEffect = ({
   items,
   className,
+  page,
+  setCourses,
 }: {
   items: {
     id: string;
@@ -18,11 +25,29 @@ export const HoverEffect = ({
     image: string;
     description: string;
     user?: any;
+    bookmarkId?: string;
   }[] | undefined;
   className?: string;
+
+  // For bookmark page
+  page?: string;
+  setCourses?: Dispatch<React.SetStateAction<BookmarkCourse[]>>;
 }) => {
   let [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const session = useSession();
+
+  const deleteBookmark = async (bookmarkId: string) => {
+    try {
+      await deleteBookmarkAction(bookmarkId);
+      if (setCourses) {
+        setCourses((prev: BookmarkCourse[]) => prev.filter((item: BookmarkCourse) => item.id !== bookmarkId));
+      }
+      toast.success("Bookmark deleted successfully");
+    } catch (error) {
+      console.log("Error", error);
+      toast.error("Failed to delete bookmark");
+    }
+  }
   
 
   return (
@@ -33,7 +58,8 @@ export const HoverEffect = ({
       )}
     >
       {items?.map((item, idx) => (
-        <Link
+        <div className="flex flex-col">
+          <Link
           href={`/course/${item?.id}`}
           key={item?.id}
           className="relative group  block p-2 h-full w-full"
@@ -77,6 +103,14 @@ export const HoverEffect = ({
 
           </Card>
         </Link>
+
+        {page === "bookmark-page" && 
+        <div className="mb-1 mt-[-5px] w-[95%] mx-auto">
+            <Button onClick={async() => deleteBookmark(item.bookmarkId!)} className="w-full h-8 bg-zinc-800 dark:bg-white"><Trash2 size={16} /><span className="mt-[0.5px]">Delete</span></Button>
+        </div>
+      }
+        </div>
+
       ))}
     </div>
   );

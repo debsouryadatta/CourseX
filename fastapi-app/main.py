@@ -55,6 +55,11 @@ async def generate_course_description(course_title: str):
     from app.generate.course_desc import generate_course_description
     return await generate_course_description(course_title)
 
+@app.get("/generate/roadmap/{roadmap_title}")
+async def generate_roadmap(roadmap_title: str):
+    from app.generate.roadmap import generate_roadmap
+    return await generate_roadmap(roadmap_title)
+
 @app.post("/generate/course/chapter/mcq")
 async def generate_mcq(chapters: ChapterPayload):
     from app.generate.mcq import generate_mcq

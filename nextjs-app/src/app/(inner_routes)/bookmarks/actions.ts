@@ -11,12 +11,54 @@ export const getBookmarkCoursesAction = async (userId: string) => {
             include: {
                 course: {
                     include: {
-                        user: true
+                        user: true,
                     }
                 }
             }
         })
         return bookmarkCourses;
+    } catch (error) {
+        console.log("Error", error);
+        throw error;
+    }
+}
+
+export const getSavedRoadmapsAction = async (userId: string) => {
+    try {
+        let savedRoadmaps = await prisma.roadmap.findMany({
+            where: {
+                userId: userId
+            }
+        })
+        return savedRoadmaps;
+    } catch (error) {
+        console.log("Error", error);
+        throw error;
+    }
+}
+
+export const deleteBookmarkAction = async (bookmarkId: string) => {
+    try {
+        await prisma.bookmark.delete({
+            where: {
+                id: bookmarkId
+            }
+        })
+        return true;
+    } catch (error) {
+        console.log("Error", error);
+        throw error;
+    }
+}
+
+export const deleteRoadmapAction = async (roadmapId: string) => {
+    try {
+        await prisma.roadmap.delete({
+            where: {
+                id: roadmapId
+            }
+        })
+        return true;
     } catch (error) {
         console.log("Error", error);
         throw error;

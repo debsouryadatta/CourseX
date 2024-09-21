@@ -290,7 +290,7 @@ export async function generateRoadmap(roadmapTitle: string) {
         topics: z.array(
           z.object({
             title: z.string().describe("The title of the topic"),
-            subtopics: z.array(z.string()).describe("The subtopics of the topic. Should be at max 6 subtopics"),
+            subtopics: z.array(z.string()).describe("The subtopics of the topic"),
           })
         ),
     })

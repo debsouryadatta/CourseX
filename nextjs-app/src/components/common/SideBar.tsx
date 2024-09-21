@@ -9,6 +9,7 @@ import {
   IconLayoutGrid,
   IconSearch,
   IconSettings,
+  IconSitemap,
   IconSquareRoundedPlus,
   IconUserBolt,
 } from "@tabler/icons-react";
@@ -43,6 +44,13 @@ export function SideBar({children}: Readonly<{children: React.ReactNode;}>) {
       href: "/create",
       icon: (
         <IconSquareRoundedPlus className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      ),
+    },
+    {
+      label: "Roadmap",
+      href: "/roadmap",
+      icon: (
+        <IconSitemap className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
     {
@@ -95,6 +103,13 @@ export function SideBar({children}: Readonly<{children: React.ReactNode;}>) {
       href: "/create",
       icon: (
         <IconSquareRoundedPlus className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      ),
+    },
+    {
+      label: "Roadmap",
+      href: "/roadmap",
+      icon: (
+        <IconSitemap className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
     {

@@ -43,6 +43,9 @@
 **v0.2 Done✅**
 
 30. Separating the course generation logic into the FastApi service using langchain python, integrating the whole thing using docker-compose
+31. Creating a New Roadmap Generation section, creating roadmaps in the fastapi backend(with langchain) and showing them on the FE and saving to the db using nextjs prisma
+32. Using html2canvas for exporting the roadmap as jpg and also adding the feature of saving the roadmaps and getting them shown in the bookmark page
+33. Adding the feature for deleting the course bookmarks as well as the saved roadmap.
 
 
 
@@ -72,6 +75,8 @@
 **v0.2 Done✅**
 
 - #10 - [[FEAT]: Separate the course generation logic into the FastApi service using langchain python, integrate the whole thing using docker-compose](https://github.com/debsouryadatta/CourseX/issues/10) ✅
+- #11 - [[FEAT]: Create a New Roadmap Generation section, where roadmaps will be generated based on the roadmap title](https://github.com/debsouryadatta/CourseX/issues/11)
+- #12 - [[BUG]: Fix the bug in the course pdf export feature](https://github.com/debsouryadatta/CourseX/issues/12)
 
 
 

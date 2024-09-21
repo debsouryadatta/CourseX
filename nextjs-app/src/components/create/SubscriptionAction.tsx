@@ -24,11 +24,11 @@ export default function SubscriptionAction({credits}: {credits: number}) {
   };
 
   return (
-    <div className="flex flex-col items-center w-1/2 p-4 mx-auto mt-4 rounded-md dark:bg-zinc-900 border border-zinc-400 dark:border-none">
-      {credits} / 10 Free Generations
+    <div className="flex flex-col items-center w-1/2 p-4 mx-auto mt-4 rounded-md dark:bg-zinc-900 border border-zinc-400 dark:border-zinc-700">
+      {credits} / 50 Free Generations
       <Progress
         className="mt-2"
-        value={credits ? credits * 10 : 0}
+        value={credits ? credits * 100/50 : 0}
       />
       <Button
         disabled={loading}
